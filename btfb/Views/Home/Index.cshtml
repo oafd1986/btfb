@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+    
+
+<div class="row">
+   
+    <div class="col-md-4">
+        <h2>Why choose BTFB</h2>
+        <p>Lorem impusm dolor sit amet dela bid sela</p>
+    </div>
+    <div class="col-md-4">
+        <h2>About us</h2>
+        <p>
+            BTFB, Inc. is a family owned company. Our family has been servicing the
+            nations south transporting vehicles from coast to coast since 2011 as
+            Yes Auto Transport, Inc., our sister car carrier company.
+        </p>
+        <p> @Html.ActionLink("Learn more >>", "About", "Home", null, new { @class = "nav-link" })</p>
+    </div>
+    <div class="col-md-4 ">
+        <br />
+        <div class="container">
+            <form>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="First name">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Last name">
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Email">
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <input type="text" class="form-control" placeholder="Phone">
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col">
+                        <select class="form-control" placeholder="Make">
+                            <option>-Make-</option>
+                            <option>Honda</option>
+                            <option>Toyota</option>
+                            <option>Chevrolet</option>
+                            <option>Ford</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <select class="form-control" placeholder="Model">
+                            <option>-Model-</option>
+                            <option>XXXX</option>
+                            <option>XXXX</option>
+                        </select>
+                    </div>
+                </div>
+                <br />
+                <button type="submit" class="btn btn-primary">Request quote</button>
+            </form>
+        </div>
+
+     
+    </div>
+</div>
