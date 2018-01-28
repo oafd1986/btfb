@@ -4,52 +4,58 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="btfbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="btfbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Requests">
           <Key>
             <PropertyRef Name="RecordId" />
           </Key>
           <Property Name="RecordId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="Fromaddress" Type="nchar" MaxLength="10" />
-          <Property Name="FromZipCode" Type="nchar" MaxLength="10" />
-          <Property Name="FromCity" Type="nchar" MaxLength="10" />
+          <Property Name="Fromaddress" Type="nvarchar" MaxLength="1000" />
+          <Property Name="FromZipCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="FromCity" Type="nvarchar" MaxLength="50" />
           <Property Name="FromState" Type="int" />
-          <Property Name="ToAddress" Type="nchar" MaxLength="10" />
-          <Property Name="ToZipCode" Type="nchar" MaxLength="10" />
-          <Property Name="ToCity" Type="nchar" MaxLength="10" />
+          <Property Name="ToAddress" Type="nvarchar" MaxLength="1000" />
+          <Property Name="ToZipCode" Type="nvarchar" MaxLength="10" />
+          <Property Name="ToCity" Type="nvarchar" MaxLength="50" />
           <Property Name="ToState" Type="int" />
           <Property Name="Runs" Type="tinyint" />
           <Property Name="Price" Type="decimal" Precision="19" Scale="2" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'btfb.dbo.States' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="States">
+          <Property Name="Id" Type="int" />
+          <Property Name="State" Type="nvarchar" MaxLength="50" />
+          <Property Name="Abbr" Type="nchar" MaxLength="10" />
+        </EntityType>-->
         <EntityContainer Name="btfbModelStoreContainer">
           <EntitySet Name="Requests" EntityType="Self.Requests" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="btfbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="btfbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Requests" EntityType="btfbModel.Request" />
+        </EntityContainer>
         <EntityType Name="Request">
           <Key>
             <PropertyRef Name="RecordId" />
           </Key>
           <Property Name="RecordId" Type="Guid" Nullable="false" />
           <Property Name="UserId" Type="Guid" Nullable="false" />
-          <Property Name="Fromaddress" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="FromZipCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="FromCity" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Fromaddress" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="FromZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FromCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="FromState" Type="Int32" />
-          <Property Name="ToAddress" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="ToZipCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <Property Name="ToCity" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="ToAddress" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ToZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ToCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ToState" Type="Int32" />
           <Property Name="Runs" Type="Byte" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="2" />
         </EntityType>
-        <EntityContainer Name="btfbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Requests" EntityType="Self.Request" />
-        </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -59,18 +65,18 @@
           <EntitySetMapping Name="Requests">
             <EntityTypeMapping TypeName="btfbModel.Request">
               <MappingFragment StoreEntitySet="Requests">
-                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Fromaddress" ColumnName="Fromaddress" />
-                <ScalarProperty Name="FromZipCode" ColumnName="FromZipCode" />
-                <ScalarProperty Name="FromCity" ColumnName="FromCity" />
-                <ScalarProperty Name="FromState" ColumnName="FromState" />
-                <ScalarProperty Name="ToAddress" ColumnName="ToAddress" />
-                <ScalarProperty Name="ToZipCode" ColumnName="ToZipCode" />
-                <ScalarProperty Name="ToCity" ColumnName="ToCity" />
-                <ScalarProperty Name="ToState" ColumnName="ToState" />
-                <ScalarProperty Name="Runs" ColumnName="Runs" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Runs" ColumnName="Runs" />
+                <ScalarProperty Name="ToState" ColumnName="ToState" />
+                <ScalarProperty Name="ToCity" ColumnName="ToCity" />
+                <ScalarProperty Name="ToZipCode" ColumnName="ToZipCode" />
+                <ScalarProperty Name="ToAddress" ColumnName="ToAddress" />
+                <ScalarProperty Name="FromState" ColumnName="FromState" />
+                <ScalarProperty Name="FromCity" ColumnName="FromCity" />
+                <ScalarProperty Name="FromZipCode" ColumnName="FromZipCode" />
+                <ScalarProperty Name="Fromaddress" ColumnName="Fromaddress" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="RecordId" ColumnName="RecordId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
