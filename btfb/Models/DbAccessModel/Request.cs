@@ -14,8 +14,8 @@ namespace btfb.Models.DbAccessModel
     
     public partial class Request
     {
-        public System.Guid RecordId { get; set; }
-        public System.Guid UserId { get; set; }
+        public string RecordId { get; set; }
+        public string UserId { get; set; }
         public string Fromaddress { get; set; }
         public string FromZipCode { get; set; }
         public string FromCity { get; set; }
@@ -26,5 +26,7 @@ namespace btfb.Models.DbAccessModel
         public Nullable<int> ToState { get; set; }
         public Nullable<byte> Runs { get; set; }
         public Nullable<decimal> Price { get; set; }
+    
+        public virtual AspNetUser AspNetUser { get; set; }
     }
 }

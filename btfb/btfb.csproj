@@ -208,6 +208,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DbAccessModel\AspNetRole.cs">
+      <DependentUpon>btfbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DbAccessModel\AspNetUser.cs">
+      <DependentUpon>btfbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DbAccessModel\AspNetUserClaim.cs">
+      <DependentUpon>btfbModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DbAccessModel\AspNetUserLogin.cs">
+      <DependentUpon>btfbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\DbAccessModel\btfbModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -276,6 +288,7 @@
       <DependentUpon>btfbModel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\Cars.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
