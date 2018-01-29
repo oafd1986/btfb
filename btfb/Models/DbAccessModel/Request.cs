@@ -26,7 +26,12 @@ namespace btfb.Models.DbAccessModel
         public Nullable<int> ToState { get; set; }
         public Nullable<byte> Runs { get; set; }
         public Nullable<decimal> Price { get; set; }
+        public Nullable<int> Make { get; set; }
+        public Nullable<int> Model { get; set; }
+        public string Year { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
+        public virtual Make Make1 { get; set; }
+        public virtual Model Model1 { get; set; }
     }
 }
