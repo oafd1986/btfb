@@ -33,5 +33,7 @@ namespace btfb.Models.DbAccessModel
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual Make Make1 { get; set; }
         public virtual Model Model1 { get; set; }
+        public virtual State State { get; set; }
+        public virtual State State1 { get; set; }
     }
 }

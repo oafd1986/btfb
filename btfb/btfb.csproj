@@ -245,6 +245,9 @@
     <Compile Include="Models\DbAccessModel\Request.cs">
       <DependentUpon>btfbModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DbAccessModel\State.cs">
+      <DependentUpon>btfbModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

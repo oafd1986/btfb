@@ -25,12 +25,13 @@ namespace btfb.Models.DbAccessModel
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }
-        public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Make> Makes { get; set; }
         public virtual DbSet<Model> Models { get; set; }
         public virtual DbSet<Request> Requests { get; set; }
+        public virtual DbSet<State> States { get; set; }
     }
 }

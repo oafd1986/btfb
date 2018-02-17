@@ -91,13 +91,14 @@
           <Property Name="Model" Type="int" />
           <Property Name="Year" Type="nchar" MaxLength="10" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'btfb.dbo.States' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="States">
-          <Property Name="Id" Type="int" />
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="State" Type="nvarchar" MaxLength="50" />
           <Property Name="Abbr" Type="nchar" MaxLength="10" />
-        </EntityType>-->
+        </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -202,6 +203,30 @@ warning 6013: The table/view 'btfb.dbo.States' does not have a primary key defin
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Requests_States">
+          <End Role="States" Type="Self.States" Multiplicity="0..1" />
+          <End Role="Requests" Type="Self.Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="States">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="FromState" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Requests_States1">
+          <End Role="States" Type="Self.States" Multiplicity="0..1" />
+          <End Role="Requests" Type="Self.Requests" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="States">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Requests">
+              <PropertyRef Name="ToState" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="btfbModelStoreContainer">
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
@@ -211,6 +236,7 @@ warning 6013: The table/view 'btfb.dbo.States' does not have a primary key defin
           <EntitySet Name="Makes" EntityType="Self.Makes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Models" EntityType="Self.Models" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Requests" EntityType="Self.Requests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="States" EntityType="Self.States" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
@@ -243,19 +269,28 @@ warning 6013: The table/view 'btfb.dbo.States' does not have a primary key defin
             <End Role="Models" EntitySet="Models" />
             <End Role="Requests" EntitySet="Requests" />
           </AssociationSet>
+          <AssociationSet Name="FK_Requests_States" Association="Self.FK_Requests_States">
+            <End Role="States" EntitySet="States" />
+            <End Role="Requests" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Requests_States1" Association="Self.FK_Requests_States1">
+            <End Role="States" EntitySet="States" />
+            <End Role="Requests" EntitySet="Requests" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="btfbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="btfbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetRoles" EntityType="btfbModel.AspNetRole" />
           <EntitySet Name="AspNetUserClaims" EntityType="btfbModel.AspNetUserClaim" />
           <EntitySet Name="AspNetUserLogins" EntityType="btfbModel.AspNetUserLogin" />
-          <EntitySet Name="AspNetRoles" EntityType="btfbModel.AspNetRole" />
           <EntitySet Name="AspNetUsers" EntityType="btfbModel.AspNetUser" />
           <EntitySet Name="Makes" EntityType="btfbModel.Make" />
           <EntitySet Name="Models" EntityType="btfbModel.Model" />
           <EntitySet Name="Requests" EntityType="btfbModel.Request" />
+          <EntitySet Name="States" EntityType="btfbModel.State" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="btfbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
@@ -280,11 +315,27 @@ warning 6013: The table/view 'btfb.dbo.States' does not have a primary key defin
             <End Role="Model" EntitySet="Models" />
             <End Role="Request" EntitySet="Requests" />
           </AssociationSet>
+          <AssociationSet Name="FK_Requests_States" Association="btfbModel.FK_Requests_States">
+            <End Role="State" EntitySet="States" />
+            <End Role="Request" EntitySet="Requests" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Requests_States1" Association="btfbModel.FK_Requests_States1">
+            <End Role="State" EntitySet="States" />
+            <End Role="Request" EntitySet="Requests" />
+          </AssociationSet>
           <AssociationSet Name="AspNetUserRoles" Association="btfbModel.AspNetUserRoles">
             <End Role="AspNetRole" EntitySet="AspNetRoles" />
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
           </AssociationSet>
-          </EntityContainer>
+        </EntityContainer>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="btfbModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+        </EntityType>
         <EntityType Name="AspNetUserClaim">
           <Key>
             <PropertyRef Name="Id" />
@@ -305,14 +356,6 @@ warning 6013: The table/view 'btfb.dbo.States' does not have a primary key defin
           <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUser" Relationship="btfbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
-        </EntityType>
-        <EntityType Name="AspNetRole">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="btfbModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
         </EntityType>
         <EntityType Name="AspNetUser">
           <Key>
@@ -376,6 +419,18 @@ warning 6013: The table/view 'btfb.dbo.States' does not have a primary key defin
           <NavigationProperty Name="AspNetUser" Relationship="btfbModel.FK_Requests_AspNetUsers" FromRole="Request" ToRole="AspNetUser" />
           <NavigationProperty Name="Make1" Relationship="btfbModel.FK_Requests_Makes" FromRole="Request" ToRole="Make" />
           <NavigationProperty Name="Model1" Relationship="btfbModel.FK_Requests_Models" FromRole="Request" ToRole="Model" />
+          <NavigationProperty Name="State" Relationship="btfbModel.FK_Requests_States" FromRole="Request" ToRole="State" />
+          <NavigationProperty Name="State1" Relationship="btfbModel.FK_Requests_States1" FromRole="Request" ToRole="State" />
+        </EntityType>
+        <EntityType Name="State">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="State1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Abbr" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Requests" Relationship="btfbModel.FK_Requests_States" FromRole="State" ToRole="Request" />
+          <NavigationProperty Name="Requests1" Relationship="btfbModel.FK_Requests_States1" FromRole="State" ToRole="Request" />
         </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="btfbModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
@@ -453,6 +508,30 @@ warning 6013: The table/view 'btfb.dbo.States' does not have a primary key defin
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Requests_States">
+          <End Type="btfbModel.State" Role="State" Multiplicity="0..1" />
+          <End Type="btfbModel.Request" Role="Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="FromState" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Requests_States1">
+          <End Type="btfbModel.State" Role="State" Multiplicity="0..1" />
+          <End Type="btfbModel.Request" Role="Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="State">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="ToState" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="AspNetUserRoles">
           <End Type="btfbModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
           <End Type="btfbModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
@@ -463,6 +542,14 @@ warning 6013: The table/view 'btfb.dbo.States' does not have a primary key defin
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="btfbModelStoreContainer" CdmEntityContainer="btfbEntities">
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="btfbModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="AspNetUserClaims">
             <EntityTypeMapping TypeName="btfbModel.AspNetUserClaim">
               <MappingFragment StoreEntitySet="AspNetUserClaims">
@@ -479,14 +566,6 @@ warning 6013: The table/view 'btfb.dbo.States' does not have a primary key defin
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
                 <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="btfbModel.AspNetRole">
-              <MappingFragment StoreEntitySet="AspNetRoles">
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -543,6 +622,15 @@ warning 6013: The table/view 'btfb.dbo.States' does not have a primary key defin
                 <ScalarProperty Name="Fromaddress" ColumnName="Fromaddress" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="RecordId" ColumnName="RecordId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="btfbModel.State">
+              <MappingFragment StoreEntitySet="States">
+                <ScalarProperty Name="Abbr" ColumnName="Abbr" />
+                <ScalarProperty Name="State1" ColumnName="State" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
