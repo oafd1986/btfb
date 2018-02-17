@@ -209,6 +209,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DataAccessClasses\DataAccess.cs" />
     <Compile Include="Models\DbAccessModel\AspNetRole.cs">
       <DependentUpon>btfbModel.tt</DependentUpon>
     </Compile>

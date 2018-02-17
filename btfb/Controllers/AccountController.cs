@@ -86,7 +86,7 @@ namespace btfb.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("", "Incorrect credential please try again.");
                     return View(model);
             }
         }
@@ -151,10 +151,12 @@ namespace btfb.Controllers
         {
             if (ModelState.IsValid)
             {
+                var manager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    manager.AddToRole(user.Id,"Users");
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
