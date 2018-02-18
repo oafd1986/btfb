@@ -26,7 +26,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "p-2", role = "Form" }))
-    {
+                            {
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6">
@@ -58,7 +58,8 @@
                                                 <input type="text" class="form-control col-md-12" placeholder="City" />
                                             </div>
                                             <div class="from-group p-2">
-                                                <input type="text" class="form-control col-md-12" placeholder="State" />
+                                                @{Html.RenderAction("States", "ComboBox",new {ComboId = "FromState" });}
+                                                
                                             </div>
                                             <div class="from-group p-2">
                                                 <input type="text" class="form-control col-md-12" placeholder="Zip Code" />
@@ -74,7 +75,7 @@
                                                 <input type="text" class="form-control col-md-12" placeholder="City" />
                                             </div>
                                             <div class="from-group p-2">
-                                                <input type="text" class="form-control col-md-12" placeholder="State" />
+                                                @{Html.RenderAction("States", "ComboBox", new { ComboId = "ToState" });}
                                             </div>
                                             <div class="from-group p-2">
                                                 <input type="text" class="form-control col-md-12" placeholder="Zip Code" />
@@ -87,15 +88,12 @@
                       
                         <div class="row">
                             <div class="col-md-6">
-                                <select class="form-control" placeholder="Make">
-                                    <option>-Make-</option>
-                                </select>
+                                @{Html.RenderAction("Makes", "ComboBox", new { ComboId = "Make" });}
                             </div>
                             <div class="col-md-6">
                                 <select class="form-control" placeholder="Model">
                                     <option>-Model-</option>
-                                    <option>XXXX</option>
-                                    <option>XXXX</option>
+                                   
                                 </select>
                             </div>
                         </div>

@@ -23,4 +23,51 @@ namespace btfb.Models.DataAccessClasses
             }
         }
     }
+    public class MakesDataAccess
+    {
+        public List<Make> GetMakes()
+        {
+            try
+            {
+                using (btfbEntities db = new btfbEntities())
+                {
+                    
+                   return  db.Makes.Include("Models").OrderBy(x=>x.Make1).ToList();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public Make GetMake(int makeId)
+        {
+            try
+            {
+                using (btfbEntities db = new btfbEntities())
+                {
+
+                    return db.Makes.Include("Models").OrderBy(x => x.Make1).FirstOrDefault(x=>x.Id == makeId);
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public List<Model> GetModelsFromMake(int makeId)
+        {
+            try
+            {
+                using (btfbEntities db = new btfbEntities())
+                {
+                    return db.Models.Where(x => x.MakeId == makeId).ToList();
+                }
+            }
+            catch
+            {
+                return null;
+            }
+        }
+    }
 }

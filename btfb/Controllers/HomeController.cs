@@ -12,8 +12,7 @@ namespace btfb.Controllers
     {
         public ActionResult Index()
         {
-            StatesDataAccess statesDA = new StatesDataAccess();
-            List<State> states = statesDA.GetStates();
+           
             return View();
         }
 
