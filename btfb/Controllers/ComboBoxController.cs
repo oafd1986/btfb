@@ -25,7 +25,7 @@ namespace btfb.Controllers
                 dropdownlist.Add(new SelectListItem { Text = state.Abbr, Value = state.Id.ToString() });
             }
             model.SelectOptions = dropdownlist;
-            return PartialView("_statePartial",model);
+            return PartialView("_statePartial", model);
         }
         public ActionResult Makes(string comboId)
         {
@@ -40,17 +40,36 @@ namespace btfb.Controllers
                 dropdownlist.Add(new SelectListItem { Text = make.Make1, Value = make.Id.ToString() });
             }
             model.SelectOptions = dropdownlist;
-            return PartialView("_statePartial", model);
+            return PartialView("_makePartial", model);
         }
+        [HttpGet]
+        [HttpPost]
         public ActionResult Models(string comboId, int? makeId)
         {
             var model = new ComboBoxViewModels();
             model.ComboId = comboId;
-            if(makeId != null)
+
+            if (makeId != null)
             {
                 MakesDataAccess makesDa = new MakesDataAccess();
-                Make make = 
+                List<Model> models = makesDa.GetModelsFromMake(makeId.GetValueOrDefault());
+                List<SelectListItem> dropdownlist = new List<SelectListItem>();
+                dropdownlist.Add(new SelectListItem { Text = "-Model-", Value = "0" });
+                foreach (var mod in models)
+                {
+                    dropdownlist.Add(new SelectListItem { Text = mod.Model1, Value = mod.id.ToString() });
+                }
+                model.SelectOptions = dropdownlist;
+                return PartialView("_modelPartial", model);
+            }
+            else
+            {
+                List<SelectListItem> dropdownlist = new List<SelectListItem>();
+                dropdownlist.Add(new SelectListItem { Text = "-Model-", Value = "0" });
+                model.SelectOptions = dropdownlist;
+                return PartialView("_modelPartial", model);
             }
         }
+
     }
 }

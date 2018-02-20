@@ -14,5 +14,6 @@ namespace btfb.Models
         public string SelectedOption { get; set; }
         public IEnumerable<SelectListItem> SelectOptions { get; set; }
     }
+   
     
 }
