@@ -6,6 +6,7 @@
     <title>@ViewBag.Title - BTFB</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
     <link href="~/Content/business-frontpage.css" rel="stylesheet" />
 </head>
 <body>
@@ -96,11 +97,11 @@
             <p class="m-0 text-center text-white">&copy; @DateTime.Now.Year - Best Transport Freight Brokers, Inc. All Rights Reserved.</p>
         </div>
     </footer>
-    @Scripts.Render("~/bundles/jquery")
+ 
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
-    <script src="~/Scripts/Cars.js"></script>
+   
 </body>
 
 </html>

@@ -42,7 +42,18 @@ namespace btfb.Controllers
             model.SelectOptions = dropdownlist;
             return PartialView("_makePartial", model);
         }
-        [HttpGet]
+        
+        public ActionResult Models(string comboId)
+        {
+            var model = new ComboBoxViewModels();
+            model.ComboId = comboId;            
+            
+                List<SelectListItem> dropdownlist = new List<SelectListItem>();
+                dropdownlist.Add(new SelectListItem { Text = "-Model-", Value = "0" });
+                model.SelectOptions = dropdownlist;
+               return PartialView("_modelPartial", model);
+           
+        }
         [HttpPost]
         public ActionResult Models(string comboId, int? makeId)
         {
@@ -70,6 +81,21 @@ namespace btfb.Controllers
                 return PartialView("_modelPartial", model);
             }
         }
+        public ActionResult Years(string comboId)
+        {
+            var model = new ComboBoxViewModels();
+            model.ComboId = comboId;
+
+            List<SelectListItem> dropdownlist = new List<SelectListItem>();
+            dropdownlist.Add(new SelectListItem { Text = "-Year-", Value = "0" });
+            for (int i = 1885; i < DateTime.Now.Year+2; i++)
+            {
+                dropdownlist.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString().ToString() });
+            }
+            model.SelectOptions = dropdownlist;
+            return PartialView("_yearPartial", model);
+        }
+
 
     }
 }
