@@ -1,0 +1,112 @@
+﻿@model IEnumerable<btfb.Models.DbAccessModel.Request>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Fromaddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FromZipCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FromCity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ToAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ToZipCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ToCity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Runs)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Year)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Make1.Make1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Model1.Model1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.State.State1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.State1.State1)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Fromaddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FromZipCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FromCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToAddress)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToZipCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToCity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Runs)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Year)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AspNetUser.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Make1.Make1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Model1.Model1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.State.State1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.State1.State1)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RecordId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RecordId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RecordId })
+        </td>
+    </tr>
+}
+
+</table>

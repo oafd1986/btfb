@@ -14,7 +14,7 @@ namespace btfb.Models.DbAccessModel
     
     public partial class Request
     {
-        public string RecordId { get; set; }
+        public int RecordId { get; set; }
         public string UserId { get; set; }
         public string Fromaddress { get; set; }
         public string FromZipCode { get; set; }
@@ -24,11 +24,15 @@ namespace btfb.Models.DbAccessModel
         public string ToZipCode { get; set; }
         public string ToCity { get; set; }
         public Nullable<int> ToState { get; set; }
-        public Nullable<byte> Runs { get; set; }
-        public Nullable<decimal> Price { get; set; }
+        public byte Runs { get; set; }
+        public decimal Price { get; set; }
         public Nullable<int> Make { get; set; }
         public Nullable<int> Model { get; set; }
         public string Year { get; set; }
+        public string email { get; set; }
+        public string phone { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual Make Make1 { get; set; }

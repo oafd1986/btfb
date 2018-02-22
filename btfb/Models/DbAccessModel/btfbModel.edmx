@@ -60,14 +60,14 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Make" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Models">
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Model" Type="nvarchar" MaxLength="50" />
           <Property Name="MakeId" Type="int" />
         </EntityType>
@@ -75,7 +75,7 @@
           <Key>
             <PropertyRef Name="RecordId" />
           </Key>
-          <Property Name="RecordId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Fromaddress" Type="nvarchar" MaxLength="1000" />
           <Property Name="FromZipCode" Type="nvarchar" MaxLength="10" />
@@ -85,11 +85,15 @@
           <Property Name="ToZipCode" Type="nvarchar" MaxLength="10" />
           <Property Name="ToCity" Type="nvarchar" MaxLength="50" />
           <Property Name="ToState" Type="int" />
-          <Property Name="Runs" Type="tinyint" />
-          <Property Name="Price" Type="decimal" Precision="19" Scale="2" />
+          <Property Name="Runs" Type="tinyint" Nullable="false" />
+          <Property Name="Price" Type="decimal" Precision="19" Scale="2" Nullable="false" />
           <Property Name="Make" Type="int" />
           <Property Name="Model" Type="int" />
           <Property Name="Year" Type="nchar" MaxLength="10" />
+          <Property Name="email" Type="nvarchar" MaxLength="50" />
+          <Property Name="phone" Type="nvarchar" MaxLength="15" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="States">
           <Key>
@@ -289,7 +293,6 @@
           <EntitySet Name="AspNetUsers" EntityType="btfbModel.AspNetUser" />
           <EntitySet Name="Makes" EntityType="btfbModel.Make" />
           <EntitySet Name="Models" EntityType="btfbModel.Model" />
-          <EntitySet Name="Requests" EntityType="btfbModel.Request" />
           <EntitySet Name="States" EntityType="btfbModel.State" />
           <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="btfbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
@@ -299,13 +302,18 @@
             <End Role="AspNetUser" EntitySet="AspNetUsers" />
             <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
           </AssociationSet>
-          <AssociationSet Name="FK_Requests_AspNetUsers" Association="btfbModel.FK_Requests_AspNetUsers">
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-            <End Role="Request" EntitySet="Requests" />
-          </AssociationSet>
           <AssociationSet Name="FK_Models_Makes" Association="btfbModel.FK_Models_Makes">
             <End Role="Make" EntitySet="Makes" />
             <End Role="Model" EntitySet="Models" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles" Association="btfbModel.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="Requests" EntityType="btfbModel.Request" />
+          <AssociationSet Name="FK_Requests_AspNetUsers" Association="btfbModel.FK_Requests_AspNetUsers">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="Request" EntitySet="Requests" />
           </AssociationSet>
           <AssociationSet Name="FK_Requests_Makes" Association="btfbModel.FK_Requests_Makes">
             <End Role="Make" EntitySet="Makes" />
@@ -323,11 +331,7 @@
             <End Role="State" EntitySet="States" />
             <End Role="Request" EntitySet="Requests" />
           </AssociationSet>
-          <AssociationSet Name="AspNetUserRoles" Association="btfbModel.AspNetUserRoles">
-            <End Role="AspNetRole" EntitySet="AspNetRoles" />
-            <End Role="AspNetUser" EntitySet="AspNetUsers" />
-          </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="AspNetRole">
           <Key>
             <PropertyRef Name="Id" />
@@ -375,14 +379,14 @@
           <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUserClaims" Relationship="btfbModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
           <NavigationProperty Name="AspNetUserLogins" Relationship="btfbModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
-          <NavigationProperty Name="Requests" Relationship="btfbModel.FK_Requests_AspNetUsers" FromRole="AspNetUser" ToRole="Request" />
           <NavigationProperty Name="AspNetRoles" Relationship="btfbModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+          <NavigationProperty Name="Requests" Relationship="btfbModel.FK_Requests_AspNetUsers" FromRole="AspNetUser" ToRole="Request" />
         </EntityType>
         <EntityType Name="Make">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Make1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Models" Relationship="btfbModel.FK_Models_Makes" FromRole="Make" ToRole="Model" />
           <NavigationProperty Name="Requests" Relationship="btfbModel.FK_Requests_Makes" FromRole="Make" ToRole="Request" />
@@ -391,36 +395,11 @@
           <Key>
             <PropertyRef Name="id" />
           </Key>
-          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Model1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MakeId" Type="Int32" />
           <NavigationProperty Name="Make" Relationship="btfbModel.FK_Models_Makes" FromRole="Model" ToRole="Make" />
           <NavigationProperty Name="Requests" Relationship="btfbModel.FK_Requests_Models" FromRole="Model" ToRole="Request" />
-        </EntityType>
-        <EntityType Name="Request">
-          <Key>
-            <PropertyRef Name="RecordId" />
-          </Key>
-          <Property Name="RecordId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Fromaddress" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="FromZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="FromCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="FromState" Type="Int32" />
-          <Property Name="ToAddress" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="ToZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="ToCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ToState" Type="Int32" />
-          <Property Name="Runs" Type="Byte" />
-          <Property Name="Price" Type="Decimal" Precision="19" Scale="2" />
-          <Property Name="Make" Type="Int32" />
-          <Property Name="Model" Type="Int32" />
-          <Property Name="Year" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
-          <NavigationProperty Name="AspNetUser" Relationship="btfbModel.FK_Requests_AspNetUsers" FromRole="Request" ToRole="AspNetUser" />
-          <NavigationProperty Name="Make1" Relationship="btfbModel.FK_Requests_Makes" FromRole="Request" ToRole="Make" />
-          <NavigationProperty Name="Model1" Relationship="btfbModel.FK_Requests_Models" FromRole="Request" ToRole="Model" />
-          <NavigationProperty Name="State" Relationship="btfbModel.FK_Requests_States" FromRole="Request" ToRole="State" />
-          <NavigationProperty Name="State1" Relationship="btfbModel.FK_Requests_States1" FromRole="Request" ToRole="State" />
         </EntityType>
         <EntityType Name="State">
           <Key>
@@ -431,7 +410,7 @@
           <Property Name="Abbr" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
           <NavigationProperty Name="Requests" Relationship="btfbModel.FK_Requests_States" FromRole="State" ToRole="Request" />
           <NavigationProperty Name="Requests1" Relationship="btfbModel.FK_Requests_States1" FromRole="State" ToRole="Request" />
-        </EntityType>
+          </EntityType>
         <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
           <End Type="btfbModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -460,18 +439,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Requests_AspNetUsers">
-          <End Type="btfbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
-          <End Type="btfbModel.Request" Role="Request" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUser">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Request">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Models_Makes">
           <End Type="btfbModel.Make" Role="Make" Multiplicity="0..1" />
           <End Type="btfbModel.Model" Role="Model" Multiplicity="*" />
@@ -481,6 +448,51 @@
             </Principal>
             <Dependent Role="Model">
               <PropertyRef Name="MakeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="btfbModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="btfbModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Request">
+          <Key>
+            <PropertyRef Name="RecordId" />
+          </Key>
+          <Property Name="RecordId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Fromaddress" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="FromZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="FromCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FromState" Type="Int32" />
+          <Property Name="ToAddress" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="ToZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ToCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ToState" Type="Int32" />
+          <Property Name="Runs" Type="Byte" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="19" Scale="2" />
+          <Property Name="Make" Type="Int32" />
+          <Property Name="Model" Type="Int32" />
+          <Property Name="Year" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="phone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="btfbModel.FK_Requests_AspNetUsers" FromRole="Request" ToRole="AspNetUser" />
+          <NavigationProperty Name="Make1" Relationship="btfbModel.FK_Requests_Makes" FromRole="Request" ToRole="Make" />
+          <NavigationProperty Name="Model1" Relationship="btfbModel.FK_Requests_Models" FromRole="Request" ToRole="Model" />
+          <NavigationProperty Name="State" Relationship="btfbModel.FK_Requests_States" FromRole="Request" ToRole="State" />
+          <NavigationProperty Name="State1" Relationship="btfbModel.FK_Requests_States1" FromRole="Request" ToRole="State" />
+        </EntityType>
+        <Association Name="FK_Requests_AspNetUsers">
+          <End Type="btfbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="btfbModel.Request" Role="Request" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Request">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -531,10 +543,6 @@
               <PropertyRef Name="ToState" />
             </Dependent>
           </ReferentialConstraint>
-        </Association>
-        <Association Name="AspNetUserRoles">
-          <End Type="btfbModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
-          <End Type="btfbModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
         </Association>
         </Schema>
     </edmx:ConceptualModels>
@@ -604,9 +612,30 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="btfbModel.State">
+              <MappingFragment StoreEntitySet="States">
+                <ScalarProperty Name="Abbr" ColumnName="Abbr" />
+                <ScalarProperty Name="State1" ColumnName="State" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="btfbModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
           <EntitySetMapping Name="Requests">
             <EntityTypeMapping TypeName="btfbModel.Request">
               <MappingFragment StoreEntitySet="Requests">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="Year" ColumnName="Year" />
                 <ScalarProperty Name="Model" ColumnName="Model" />
                 <ScalarProperty Name="Make" ColumnName="Make" />
@@ -625,23 +654,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="States">
-            <EntityTypeMapping TypeName="btfbModel.State">
-              <MappingFragment StoreEntitySet="States">
-                <ScalarProperty Name="Abbr" ColumnName="Abbr" />
-                <ScalarProperty Name="State1" ColumnName="State" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <AssociationSetMapping Name="AspNetUserRoles" TypeName="btfbModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
-            <EndProperty Name="AspNetUser">
-              <ScalarProperty Name="Id" ColumnName="UserId" />
-            </EndProperty>
-            <EndProperty Name="AspNetRole">
-              <ScalarProperty Name="Id" ColumnName="RoleId" />
-            </EndProperty>
-          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

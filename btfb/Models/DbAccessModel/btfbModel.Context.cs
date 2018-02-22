@@ -31,7 +31,7 @@ namespace btfb.Models.DbAccessModel
         public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
         public virtual DbSet<Make> Makes { get; set; }
         public virtual DbSet<Model> Models { get; set; }
-        public virtual DbSet<Request> Requests { get; set; }
         public virtual DbSet<State> States { get; set; }
+        public virtual DbSet<Request> Requests { get; set; }
     }
 }

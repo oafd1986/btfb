@@ -1,0 +1,131 @@
+﻿@model btfb.Models.DbAccessModel.Request
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Request</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Fromaddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fromaddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FromZipCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FromZipCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FromCity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FromCity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ToAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ToAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ToZipCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ToZipCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ToCity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ToCity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Runs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Runs)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Year)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AspNetUser.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AspNetUser.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Make1.Make1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Make1.Make1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Model1.Model1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Model1.Model1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.State.State1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.State.State1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.State1.State1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.State1.State1)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RecordId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

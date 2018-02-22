@@ -1,6 +1,7 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+
 <script type="text/javascript">
     $(document).ready(function () { 
     $(function () {
@@ -8,10 +9,10 @@
         $('#Make').change(function () {
                 var selectedMakeID = this.value;
                 $.ajax({
-                    url: "/ComboBox/Models",
+                    url: "/Requests/Models",
                     type: "post",
                     data: {
-                        comboId: "Model",
+                        
                         makeId: selectedMakeID
                     },
                     success: function (result) {
@@ -49,88 +50,7 @@
                 <div class="card-block">
 
                     <div class="row">
-                        <div class="col-md-12">
-                            @using (Html.BeginForm("", "", FormMethod.Post, new { @class = "p-2", role = "Form" }))
-                            {
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-
-                                            <input type="text" class="form-control" placeholder="First name">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" class="form-control" placeholder="Last name">
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control col-md-6" placeholder="Email">
-                                </div>
-
-                                <div class="form-group">
-
-                                    <input type="tel" class="form-control col-md-6" placeholder="Phone">
-
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="card">
-                                                <div class="card-block">
-                                                    <div class="card-title p-2"><h5>Origin</h5></div>
-                                                    <div class="from-group p-2">
-                                                        <input type="text" class="form-control col-md-12" placeholder="City" />
-                                                    </div>
-                                                    <div class="from-group p-2">
-                                                        @{Html.RenderAction("States", "ComboBox", new { ComboId = "FromState" });}
-
-                                                    </div>
-                                                    <div class="from-group p-2">
-                                                        <input type="text" class="form-control col-md-12" placeholder="Zip Code" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="card">
-                                                <div class="card-block">
-                                                    <div class="card-title p-2"><h5>Destination</h5></div>
-                                                    <div class="from-group p-2">
-                                                        <input type="text" class="form-control col-md-12" placeholder="City" />
-                                                    </div>
-                                                    <div class="from-group p-2">
-                                                        @{Html.RenderAction("States", "ComboBox", new { ComboId = "ToState" });}
-                                                    </div>
-                                                    <div class="from-group p-2">
-                                                        <input type="text" class="form-control col-md-12" placeholder="Zip Code" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            @{Html.RenderAction("Makes", "ComboBox", new { ComboId = "Make" });}
-                                        </div>
-                                        <div class="col-md-6" id="ModelContainer">
-                                            @{Html.RenderAction("Models", "ComboBox", new { ComboId = "Model" });}
-
-                                        </div>
-                                    </div>
-                                </div>
-                          
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        @{ Html.RenderAction("Years", "ComboBox", new { ComboId = "Years" });}
-                                    </div>
-                                </div>
-                                <br />
-                                <button type="submit" class="btn btn-outline-primary">Request quote</button>
-                            }
-                        </div>
+                        @{Html.RenderAction("HomeCreate", "Requests");}
                     </div>
 
                 </div>
