@@ -1,7 +1,8 @@
-﻿@model btfb.Models.DbAccessModel.Request
-@{  Layout = "";}
+﻿
+@{ Layout = "";}
+@model btfb.ViewModels.RequestViewModel
 <div class="col-md-12">
-    @using (Html.BeginForm("Create", "Requests", FormMethod.Post, new { @class = "p-2", role = "Form" }))
+    @using (Html.BeginForm("HomeCreate", "Request", FormMethod.Post, new { @class = "p-2", role = "Form" }))
     {
         @Html.AntiForgeryToken()
         <div class="form-group">
@@ -10,7 +11,7 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-md-6">
-                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control form-control-sm", @placeholder = "Name" } })
+                    @Html.EditorFor(model => model.Request.FirstName, new { htmlAttributes = new { @class = "form-control form-control-sm", @placeholder = "Name" } })
 
 
                 </div>
@@ -86,7 +87,8 @@
                 @{ Html.RenderAction("Years", "ComboBox", new { ComboId = "Years" });}
             </div>
             <div class="col-md-6">
-
+                @Html.EditorFor(model => model.Runs, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Runs, "", new { @class = "text-danger" })
             </div>
         </div>
 
