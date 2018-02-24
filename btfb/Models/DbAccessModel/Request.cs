@@ -11,8 +11,7 @@ namespace btfb.Models.DbAccessModel
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Request
     {
         public int RecordId { get; set; }
@@ -25,11 +24,11 @@ namespace btfb.Models.DbAccessModel
         public string ToZipCode { get; set; }
         public string ToCity { get; set; }
         public Nullable<int> ToState { get; set; }
-        public Nullable<byte> Runs { get; set; }
+        public Nullable<bool> Runs { get; set; }
         public Nullable<decimal> Price { get; set; }
         public Nullable<int> Make { get; set; }
         public Nullable<int> Model { get; set; }
-        public string Year { get; set; }        
+        public string Year { get; set; }
         public string email { get; set; }
         public string phone { get; set; }
         public string FirstName { get; set; }
