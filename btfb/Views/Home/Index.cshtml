@@ -1,9 +1,13 @@
 ﻿@{
     ViewBag.Title = "Home Page";
+   
 }
 
 <script type="text/javascript">
-    $(document).ready(function () { 
+    
+    $(document).ready(function () {
+        
+        $('#Phone').inputmask("(999) 999-9999");
     $(function () {
         // Populate State/Provinces
         $('#Make').change(function () {
