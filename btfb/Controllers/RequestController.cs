@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using btfb.Models.DbAccessModel;
 using btfb.Models.DataAccessClasses;
@@ -11,45 +12,68 @@ namespace btfb.Controllers
 {
     public class RequestController : Controller
     {
+        private btfbEntities db = new btfbEntities();
         // GET: Request
         [AllowAnonymous]
         public ActionResult HomeCreate()
         {
-            RequestViewModel model = new RequestViewModel();
-            MakesDataAccess makesDA = new MakesDataAccess();
-            List<Make> makes = new List<Make>();
-            makes.Add(new Make { Id = 0, Make1 = "-Make-" });
-            makes.AddRange(makesDA.GetMakes());
+            RequestViewModel request = new RequestViewModel();
 
-            StatesDataAccess statesDA = new StatesDataAccess();
-            List<State> states = new List<State>();
-            states.Add(new State { Id = 0, State1 = "-State-" });
-            states.AddRange(statesDA.GetStates());
-
-            List<Model> models = new List<Model>();
-            models.Add(new Model { id = 0, Model1 = "-Model-" });
-            ViewBag.Model = new SelectList(models, "id", "Model1");
+            MakesDataAccess makesDA = new MakesDataAccess();           
+            request.Makes = makesDA.GetMakesList();    
+            request.Models = makesDA.GetModelsList();
 
 
-            ViewBag.Make = new SelectList(makes, "Id", "Make1");
-            ViewBag.Model = new SelectList(models, "id", "Model1");
-            ViewBag.FromState = new SelectList(states, "Id", "State1");
-            ViewBag.ToState = new SelectList(states, "Id", "State1");
-            return View(model);
+            StatesDataAccess statesDA = new StatesDataAccess(); 
+            request.States = statesDA.GetStatesList();
+            
+
+            Utils util = new Utils();
+            request.Years = util.GetYearsList();
+            return View(request);
         }
+
         [HttpPost]
         [AllowAnonymous]
-        public ActionResult HomeCreate(RequestViewModel rvm)
+        [ValidateAntiForgeryToken]
+        public async  Task<ActionResult> HomeCreate(RequestViewModel rvm)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                Request request = new Request();
+                request = rvm.Request;
+                request.Make = int.Parse(rvm.SelectedMake);
+                request.Model = int.Parse(rvm.SelectedModel);
+                request.FromState = int.Parse(rvm.FromState);
+                request.ToState = int.Parse(rvm.ToState);        
+                        
+                        
+                db.Requests.Add(request);
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index","Home",new { area = ""});
+            }
+            else
+            {
+                return View(rvm);
+            }
+            
         }
         [AllowAnonymous]
         public ActionResult Models()
         {
-            List<Model> models = new List<Model>();
-            models.Add(new Model { id = 0, Model1 = "-Model-" });
-            ViewBag.Model = new SelectList(models, "id", "Model1");
+            MakesDataAccess makesDA = new MakesDataAccess();
+            ViewBag.Model = makesDA.GetModelsList();
             return PartialView("_ModelPartial");
         }
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult Models(int? makeId)
+        {
+            MakesDataAccess makesDA = new MakesDataAccess();
+            RequestViewModel request = new RequestViewModel();
+            request.Models = makesDA.GetModelsList(makeId.GetValueOrDefault());
+            return PartialView("_ModelPartial",request);
+        }
+       
     }
 }

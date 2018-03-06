@@ -21,5 +21,14 @@ namespace btfb.Models.DbAccessModel
         [Required]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+        [Required]
+        [Display(Name = "Runs")]
+        public bool Runs { get; set; }
+        [Required]
+        [Display(Name = "Origin Zip Code")]
+        public string FromZipCode { get; set; }
+        [Required]
+        [Display(Name = "Destination Zip Code")]
+        public string ToZipCode { get; set; }
     }
 }

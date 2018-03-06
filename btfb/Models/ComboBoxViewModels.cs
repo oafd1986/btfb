@@ -10,6 +10,7 @@ namespace btfb.Models
 {
     public class ComboBoxViewModels
     {
+        
         public string ComboId { get; set; }
         public string SelectedOption { get; set; }
         public IEnumerable<SelectListItem> SelectOptions { get; set; }

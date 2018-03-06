@@ -76,7 +76,7 @@
             <PropertyRef Name="RecordId" />
           </Key>
           <Property Name="RecordId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
           <Property Name="Fromaddress" Type="nvarchar" MaxLength="1000" />
           <Property Name="FromZipCode" Type="nvarchar" MaxLength="10" />
           <Property Name="FromCity" Type="nvarchar" MaxLength="50" />
@@ -85,11 +85,11 @@
           <Property Name="ToZipCode" Type="nvarchar" MaxLength="10" />
           <Property Name="ToCity" Type="nvarchar" MaxLength="50" />
           <Property Name="ToState" Type="int" />
-          <Property Name="Runs" Type="bit" />
+          <Property Name="Runs" Type="bit" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="19" Scale="2" />
           <Property Name="Make" Type="int" />
           <Property Name="Model" Type="int" />
-          <Property Name="Year" Type="nchar" MaxLength="10" />
+          <Property Name="Year" Type="nchar" MaxLength="4" />
           <Property Name="email" Type="nvarchar" MaxLength="50" />
           <Property Name="phone" Type="nvarchar" MaxLength="15" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -172,7 +172,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Requests_AspNetUsers">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
           <End Role="Requests" Type="Self.Requests" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
@@ -460,7 +460,7 @@
             <PropertyRef Name="RecordId" />
           </Key>
           <Property Name="RecordId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="Fromaddress" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
           <Property Name="FromZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="FromCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -469,11 +469,11 @@
           <Property Name="ToZipCode" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <Property Name="ToCity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ToState" Type="Int32" />
-          <Property Name="Runs" Type="Boolean" />
+          <Property Name="Runs" Type="Boolean" Nullable="false" />
           <Property Name="Price" Type="Decimal" Precision="19" Scale="2" />
           <Property Name="Make" Type="Int32" />
           <Property Name="Model" Type="Int32" />
-          <Property Name="Year" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Year" Type="String" MaxLength="4" FixedLength="true" Unicode="true" />
           <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="phone" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -485,7 +485,7 @@
           <NavigationProperty Name="State1" Relationship="btfbModel.FK_Requests_States1" FromRole="Request" ToRole="State" />
         </EntityType>
         <Association Name="FK_Requests_AspNetUsers">
-          <End Type="btfbModel.AspNetUser" Role="AspNetUser" Multiplicity="1" />
+          <End Type="btfbModel.AspNetUser" Role="AspNetUser" Multiplicity="0..1" />
           <End Type="btfbModel.Request" Role="Request" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUser">

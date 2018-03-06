@@ -24,7 +24,7 @@ namespace btfb.Models.DbAccessModel
         public string ToZipCode { get; set; }
         public string ToCity { get; set; }
         public Nullable<int> ToState { get; set; }
-        public Nullable<bool> Runs { get; set; }
+        public bool Runs { get; set; }
         public Nullable<decimal> Price { get; set; }
         public Nullable<int> Make { get; set; }
         public Nullable<int> Model { get; set; }

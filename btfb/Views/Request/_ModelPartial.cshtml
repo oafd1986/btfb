@@ -1,2 +1,3 @@
-﻿@model btfb.Models.DbAccessModel.Request
-@Html.DropDownList("Model", null, htmlAttributes: new { @class = "form-control input-sm", @id = "Model" })
+﻿@model btfb.ViewModels.RequestViewModel
+
+@Html.DropDownListFor(m => m.SelectedModel, Model.Models, new { @class = "form-control form-control-sm", @id = "Model" })

@@ -88,7 +88,7 @@ namespace btfb.Controllers
 
             List<SelectListItem> dropdownlist = new List<SelectListItem>();
             dropdownlist.Add(new SelectListItem { Text = "-Year-", Value = "0" });
-            for (int i = 1885; i < DateTime.Now.Year+2; i++)
+            for (int i = DateTime.Now.Year + 2; i > 1885; i--)
             {
                 dropdownlist.Add(new SelectListItem { Text = i.ToString(), Value = i.ToString().ToString() });
             }
