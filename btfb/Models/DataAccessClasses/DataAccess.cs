@@ -132,6 +132,10 @@ namespace btfb.Models.DataAccessClasses
             return modelsDropDownList;
         }
     }
+    public class RequestDataAccess
+    {
+
+    }
     public class Utils
     {
         public List<SelectListItem> GetYearsList()

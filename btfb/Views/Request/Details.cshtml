@@ -12,51 +12,43 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Fromaddress)
+            @Html.DisplayFor(model => model.RequestId)
         </dt>
-
+        <dt>
+            Client Name:
+        </dt>
+        <dd> @(String.Format("{0} {1}", Html.DisplayFor(model => model.FirstName), Html.DisplayFor(model => model.LastName))) </dd>
+        <dt>
+            Email:
+        </dt>
         <dd>
-            @Html.DisplayFor(model => model.Fromaddress)
+            @Html.DisplayFor(model => model.email)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FromZipCode)
+            Phone number:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FromZipCode)
+            @Html.DisplayFor(model => model.phone)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FromCity)
+            From Address:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FromCity)
+            @(String.Format("{0} {1} {2} {3}", Html.DisplayFor(model => model.Fromaddress), Html.DisplayFor(model => model.FromCity), Html.DisplayFor(model => model.State.Abbr), Html.DisplayFor(model => model.FromZipCode)))
+
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ToAddress)
+            To Address:
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ToAddress)
-        </dd>
+            @(String.Format("{0} {1} {2} {3}", Html.DisplayFor(model => model.ToAddress), Html.DisplayFor(model => model.ToCity), Html.DisplayFor(model => model.State1.Abbr), Html.DisplayFor(model => model.ToZipCode)))
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ToZipCode)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ToZipCode)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ToCity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ToCity)
         </dd>
 
         <dt>
@@ -64,16 +56,24 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Runs)
+            @if (Model.Runs == true)
+            {
+            <text>Yes</text>
+            }
+            else
+            {
+            <text>No</text>
+            }
         </dd>
-
-        <dt>
+            @if (Model.Price != null)
+             {
+           <dt>
             @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
+           </dt>
+              <dd>
+               @Html.DisplayFor(model=>model.Price);
+              </dd>
+              }
 
         <dt>
             @Html.DisplayNameFor(model => model.Year)
@@ -83,14 +83,7 @@
             @Html.DisplayFor(model => model.Year)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.AspNetUser.Email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AspNetUser.Email)
-        </dd>
-
+        
         <dt>
             @Html.DisplayNameFor(model => model.Make1.Make1)
         </dt>

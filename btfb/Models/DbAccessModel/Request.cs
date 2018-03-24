@@ -33,6 +33,7 @@ namespace btfb.Models.DbAccessModel
         public string phone { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string RequestId { get; set; }
     
         public virtual AspNetUser AspNetUser { get; set; }
         public virtual Make Make1 { get; set; }

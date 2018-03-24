@@ -8,12 +8,12 @@ namespace btfb.Models.DbAccessModel
     public class RequestsMetadata
     {
         [Required]
-        [Display(Name ="Email")]
+        [Display(Name = "Email")]
         [DataType(DataType.EmailAddress)]
         [EmailAddress]
         public string email { get; set; }
         [Required]
-        [Display(Name ="Phone")]
+        [Display(Name = "Phone")]
         public string phone { get; set; }
         [Required]
         [Display(Name = "First Name")]
@@ -26,9 +26,15 @@ namespace btfb.Models.DbAccessModel
         public bool Runs { get; set; }
         [Required]
         [Display(Name = "Origin Zip Code")]
+        [StringLength(5, ErrorMessage = "The {0} must have {2} characters.", MinimumLength = 5)]
         public string FromZipCode { get; set; }
         [Required]
         [Display(Name = "Destination Zip Code")]
+        [StringLength(5, ErrorMessage = "The {0} must have {2} characters.", MinimumLength = 5)]
         public string ToZipCode { get; set; }
+        [Display(Name = "Make")]
+        public virtual Make Make1 { get; set; }
+        [Display(Name = "Make")]
+        public virtual Model Model1 { get; set; }
     }
 }
