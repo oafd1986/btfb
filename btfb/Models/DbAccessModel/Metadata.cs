@@ -34,7 +34,7 @@ namespace btfb.Models.DbAccessModel
         public string ToZipCode { get; set; }
         [Display(Name = "Make")]
         public virtual Make Make1 { get; set; }
-        [Display(Name = "Make")]
+        [Display(Name = "Model")]
         public virtual Model Model1 { get; set; }
     }
 }

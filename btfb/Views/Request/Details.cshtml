@@ -7,118 +7,113 @@
 
 <h2>Details</h2>
 
-<div>
-    <h4>Request</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayFor(model => model.RequestId)
-        </dt>
-        <dt>
-            Client Name:
-        </dt>
-        <dd> @(String.Format("{0} {1}", Html.DisplayFor(model => model.FirstName), Html.DisplayFor(model => model.LastName))) </dd>
-        <dt>
-            Email:
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.email)
-        </dd>
+<div class="row">
+    <div class="col-md-6">
+        <h4>Request</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+               Request ID
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.RequestId)
+            </dd>
+            <dt>
+                Client Name:
+            </dt>
+            <dd> @(String.Format("{0} {1}", Html.DisplayFor(model => model.FirstName), Html.DisplayFor(model => model.LastName))) </dd>
+            <dt>
+                Email:
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.email)
+            </dd>
 
-        <dt>
-            Phone number:
-        </dt>
+            <dt>
+                Phone number:
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.phone)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.phone)
+            </dd>
 
-        <dt>
-            From Address:
-        </dt>
+        </dl>
+    </div>
+    <div class="col-md-6">
+        <h4>&nbsp;</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                From Address:
+            </dt>
 
-        <dd>
-            @(String.Format("{0} {1} {2} {3}", Html.DisplayFor(model => model.Fromaddress), Html.DisplayFor(model => model.FromCity), Html.DisplayFor(model => model.State.Abbr), Html.DisplayFor(model => model.FromZipCode)))
+            <dd>
+                @(String.Format("{0} {1} {2} {3}", Html.DisplayFor(model => model.Fromaddress), Html.DisplayFor(model => model.FromCity), Html.DisplayFor(model => model.State.Abbr), Html.DisplayFor(model => model.FromZipCode)))
 
-        </dd>
+            </dd>
 
-        <dt>
-            To Address:
-        </dt>
+            <dt>
+                To Address:
+            </dt>
 
-        <dd>
-            @(String.Format("{0} {1} {2} {3}", Html.DisplayFor(model => model.ToAddress), Html.DisplayFor(model => model.ToCity), Html.DisplayFor(model => model.State1.Abbr), Html.DisplayFor(model => model.ToZipCode)))
+            <dd>
+                @(String.Format("{0} {1} {2} {3}", Html.DisplayFor(model => model.ToAddress), Html.DisplayFor(model => model.ToCity), Html.DisplayFor(model => model.State1.Abbr), Html.DisplayFor(model => model.ToZipCode)))
 
-        </dd>
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Runs)
-        </dt>
+            <dt>
+               <text>Runs:</text>
+            </dt>
 
-        <dd>
-            @if (Model.Runs == true)
-            {
-            <text>Yes</text>
-            }
-            else
-            {
-            <text>No</text>
-            }
-        </dd>
-            @if (Model.Price != null)
-             {
-           <dt>
-            @Html.DisplayNameFor(model => model.Price)
-           </dt>
-              <dd>
-               @Html.DisplayFor(model=>model.Price);
-              </dd>
-              }
+            <dd>
+                @if (Model.Runs == true)
+                    {
+                    <text>Yes</text>
+                    }
+                 else
+                    {
+                    <text>No</text>
+                    }
+            </dd>
+                @if (Model.Price != null)
+                {
+                <dt>
+                 <text>Price:</text>
+                </dt>
+                <dd>
+                @Html.DisplayFor(model => model.Price);
+                </dd>
+                }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Year)
-        </dt>
+                <dt>
+                @Html.DisplayNameFor(model => model.Year)
+                </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Year)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Year)
+            </dd>
 
-        
-        <dt>
-            @Html.DisplayNameFor(model => model.Make1.Make1)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Make1.Make1)
-        </dd>
+            <dt>
+               <text>Make:</text>
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Model1.Model1)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Make1.Make1)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Model1.Model1)
-        </dd>
+            <dt>
+               <text>Model:</text>
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.State.State1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.State.State1)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.State1.State1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.State1.State1)
-        </dd>
-
-    </dl>
+            <dd>
+                @Html.DisplayFor(model => model.Model1.Model1)
+            </dd>
+        </dl>
+    </div>
+    
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.RecordId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RecordId }, new { @class = "btn btn-info btn-sm" }) |
+    @Html.ActionLink("Back to List", "Index",null, new { @class = "btn btn-info btn-sm" })
 </p>

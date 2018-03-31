@@ -20,7 +20,7 @@ namespace btfb.ViewModels
         public string FromState { get; set; }        
         public string ToState { get; set; }
         public IEnumerable<SelectListItem> States { get; set; }
-        
+        public IEnumerable<SelectListItem> Users { get; set; }
     }
     
 }

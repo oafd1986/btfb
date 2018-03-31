@@ -1,0 +1,124 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model btfb.ViewModels.RequestViewModel
+    <div class="row margin-top-05">
+        <div class="col-md-4">
+            <h3>Create Request</h3>
+        </div>
+    </div>
+<div class="row">
+<div class="col-md-6">
+    @using (Html.BeginForm("HomeCreate", "Request", FormMethod.Post, new { @class = "p-2", role = "Form" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            @Html.ValidationSummary(true, "", new { @class = "alert alert-danger alert-dismissible" })
+        </div>
+        <div class="form-group">
+            @Html.DropDownListFor(m => m.Users, Model.Users, new { @class = "form-control form-control-sm", @id = "Userd" })
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Request.FirstName, new { htmlAttributes = new { @class = "form-control form-control-sm", @placeholder = "Name" } })
+                    @Html.ValidationMessageFor(model => model.Request.FirstName, "", new { @class = "text-danger" })
+
+                </div>
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.Request.LastName, new { htmlAttributes = new { @class = "form-control form-control-sm", @placeholder = "Last Name" } })
+                    @Html.ValidationMessageFor(model => model.Request.LastName, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.EditorFor(model => model.Request.email, new { htmlAttributes = new { @class = "form-control form-control-sm col-md-5", @placeholder = "Email" } })
+            @Html.ValidationMessageFor(model => model.Request.email, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.EditorFor(model => model.Request.phone, new { htmlAttributes = new { @class = "form-control form-control-sm col-md-5 phone", @placeholder = "Phone", @id = "Phone" } })
+            @Html.ValidationMessageFor(model => model.Request.phone, "", new { @class = "text-danger" })
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-block">
+                            <div class="card-title p-2"><h5>Origin</h5></div>
+                            <div class="from-group p-2">
+
+                                @Html.EditorFor(model => model.Request.FromCity, new { htmlAttributes = new { @class = "form-control form-control-sm col-md-12", @placeholder = "City" } })
+                            </div>
+                            <div class="from-group p-2">
+                                @Html.DropDownListFor(m => m.FromState, Model.States, new { @class = "form-control form-control-sm", @id = "FromState" })
+
+                            </div>
+                            <div class="from-group p-2">
+                                @Html.EditorFor(model => model.Request.FromZipCode, new { htmlAttributes = new { @class = "form-control form-control-sm col-md-12", @placeholder = "Zip Code" } })
+                                @Html.ValidationMessageFor(model => model.Request.FromZipCode, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-block">
+                            <div class="card-title p-2"><h5>Destination</h5></div>
+                            <div class="from-group p-2">
+                                @Html.EditorFor(model => model.Request.ToCity, new { htmlAttributes = new { @class = "form-control form-control-sm col-md-12", @placeholder = "City" } })
+                            </div>
+                            <div class="from-group p-2">
+                                @Html.DropDownListFor(m => m.ToState, Model.States, new { @class = "form-control form-control-sm", @id = "ToState" })
+
+                            </div>
+                            <div class="from-group p-2">
+                                @Html.EditorFor(model => model.Request.ToZipCode, new { htmlAttributes = new { @class = "form-control form-control-sm col-md-12", @placeholder = "Zip Code" } })
+                                @Html.ValidationMessageFor(model => model.Request.ToZipCode, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-6">
+                    @Html.DropDownListFor(m => m.SelectedMake, Model.Makes, new { @class = "form-control form-control-sm", @id = "Makes" })
+                    @Html.ValidationMessageFor(model => model.Request.Make, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-md-6" id="ModelContainer">
+
+                    @Html.DropDownList("Models", null, htmlAttributes: new { @class = "form-control form-control-sm ", @id = "Model" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                @Html.DropDownListFor(m => m.SelectedYear, Model.Years, new { @class = "form-control form-control-sm", @id = "years" })
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-md-4">@Html.LabelFor(model => model.Request.Runs)</div>
+                    <div class="col-md-4">@Html.EditorFor(model => model.Request.Runs, new { htmlAttributes = new { @class = "form-control" } })</div>
+                </div>
+                @Html.ValidationMessageFor(model => model.Request.Runs, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <br />
+        <button type="submit" class="btn btn-outline-primary">Request quote</button>
+    }
+</div>
+</div>
+<div class="row">
+    <p>
+      
+        @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-info btn-sm" })
+    </p>
+</div>
+

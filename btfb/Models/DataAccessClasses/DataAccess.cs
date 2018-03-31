@@ -136,6 +136,39 @@ namespace btfb.Models.DataAccessClasses
     {
 
     }
+    public class UsersDataAccess
+    {
+
+        public List<SelectListItem> GetNonAdminUsers()
+        {
+
+            var context = new ApplicationDbContext();
+            var nonadmin = context.Roles.Single(b => b.Name != "Admins").Users;
+            var allusers = context.Users.ToList();
+            foreach(var nonadm in nonadmin)
+            {
+                allusers.RemoveAll(u=>u.Id == nonadm.UserId);
+            }
+            List<SelectListItem> usersdropdownlist = new List<SelectListItem>();
+            usersdropdownlist.Add(new SelectListItem { Text = "-User-", Value = "0" });
+
+            if (allusers != null)
+            {
+                foreach (var user in allusers)
+                {
+                    usersdropdownlist.Add(new SelectListItem
+                    {
+                        Text = user.Email,
+                        Value = user.Id
+                    });
+                }
+            }
+            return usersdropdownlist;
+          
+
+        }
+       
+    }
     public class Utils
     {
         public List<SelectListItem> GetYearsList()

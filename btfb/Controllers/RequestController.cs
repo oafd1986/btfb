@@ -13,15 +13,15 @@ using btfb.Models;
 using btfb.Helpers;
 using System.Text;
 using System.Net;
+using System.Data.Entity;
 
 namespace btfb.Controllers
 {
     public class RequestController : Controller
-    {
-        
+    {       
 
         private btfbEntities db = new btfbEntities();
-        // GET: Request
+        
         [AllowAnonymous]
         public ActionResult HomeCreate()
         {
@@ -81,6 +81,7 @@ namespace btfb.Controllers
                 body.Append("Phone: "+request.phone+"\n");
                 body.Append("Email: " + request.email+"\n");
                 body.Append("Request Id: "+request.RecordId+"\n");
+                
                 mail.msgbody = body;
                 mail.SendEmail();
                 //notify client that his request is being proccessed
@@ -119,7 +120,7 @@ namespace btfb.Controllers
             request.Models = makesDA.GetModelsList(makeId.GetValueOrDefault());
             return PartialView("_ModelPartial",request);
         }
-
+        [Authorize(Roles ="Admins")]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -133,6 +134,56 @@ namespace btfb.Controllers
             }
             return View(request);
         }
+        [Authorize(Roles = "Admins")]
+        public async Task<ActionResult> Index()
+        {
+            return View(await db.Requests.ToListAsync());
+        }
+        public async Task<ActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Request make = await db.Requests.FindAsync(id);
+            if (make == null)
+            {
+                return HttpNotFound();
+            }
+            return View(make);
+        }
+        //for next version use httpost to delete using a popup in the same index view with viewbag having form to submit
+        //id to delete
+        [Authorize(Roles = "Admins")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            Request request = await db.Requests.FindAsync(id);
+            db.Requests.Remove(request);
+            await db.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+        [Authorize(Roles = "Admins")]
+        public ActionResult Create()
+        {
+            RequestViewModel request = new RequestViewModel();
+            request.Request = new Request();
 
+            MakesDataAccess makesDA = new MakesDataAccess();
+            request.Makes = makesDA.GetMakesList();
+            request.Models = makesDA.GetModelsList();
+
+
+            StatesDataAccess statesDA = new StatesDataAccess();
+            request.States = statesDA.GetStatesList();
+
+            UsersDataAccess usersDA = new UsersDataAccess();
+            request.Users = usersDA.GetNonAdminUsers();
+
+            Utils util = new Utils();
+            request.Years = util.GetYearsList();
+            return View(request);
+        }
+
+       
     }
 }
