@@ -216,6 +216,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ComboBoxViewModels.cs" />
     <Compile Include="Models\DataAccessClasses\DataAccess.cs" />
+    <Compile Include="Models\DataAccessClasses\DTOClasses.cs" />
     <Compile Include="Models\DbAccessModel\AspNetRole.cs">
       <DependentUpon>btfbModel.tt</DependentUpon>
     </Compile>
@@ -406,8 +407,6 @@
     <Content Include="Views\Makes\Details.cshtml" />
     <Content Include="Views\Makes\Edit.cshtml" />
     <Content Include="Views\Makes\Index.cshtml" />
-    <Content Include="Views\Shared\_statePartial.cshtml" />
-    <Content Include="Views\Shared\_makePartial.cshtml" />
     <Content Include="Views\Shared\_yearPartial.cshtml" />
     <Content Include="Views\Shared\comboPartial.cshtml" />
     <Content Include="Views\Request\Delete.cshtml" />

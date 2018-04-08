@@ -59,17 +59,18 @@ namespace btfb.Controllers
         [ValidateAntiForgeryToken]
         public async  Task<ActionResult> HomeCreate(RequestViewModel rvm)
         {
-            var user = User.Identity.GetUserId();
+            
             if (ModelState.IsValid)
             {
                 Request request = new Request();
                 request = rvm.Request;
+
                 request.Make = int.Parse(rvm.SelectedMake);
                 request.Model = int.Parse(rvm.SelectedModel);
                 request.FromState = int.Parse(rvm.FromState);
                 request.ToState = int.Parse(rvm.ToState);
-                request.Year = rvm.SelectedYear;      
-                        
+                request.Year = rvm.SelectedYear;
+
                 db.Requests.Add(request);
                 await db.SaveChangesAsync();
                 //notify business
@@ -98,11 +99,8 @@ namespace btfb.Controllers
                 mail.SendEmail();
                 return RedirectToAction("Index","Home",new { area = ""});
             }
-            else
-            {
-                return View(rvm);
-            }
-            
+            return RedirectToAction("Index", "Home", new { area = "" });
+
         }
         [AllowAnonymous]
         public ActionResult Models()
@@ -183,7 +181,37 @@ namespace btfb.Controllers
             request.Years = util.GetYearsList();
             return View(request);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admins")]
+        public async Task<ActionResult> Create(RequestViewModel rvm)
+        {
+            if (ModelState.IsValid)
+            {
+                Request request = new Request();
+                request = rvm.Request;
+                if(rvm.SelectedUser!="0")
+                {
+                    request.UserId = rvm.SelectedUser;
+                }
+                request.Make = int.Parse(rvm.SelectedMake);
+                request.Model = int.Parse(rvm.SelectedModel);
+                request.FromState = int.Parse(rvm.FromState);
+                request.ToState = int.Parse(rvm.ToState);
+                request.Year = rvm.SelectedYear;
+                request.Make = int.Parse(rvm.SelectedMake);
+                request.Model = int.Parse(rvm.SelectedModel);
 
-       
+
+                db.Requests.Add(request);
+                await db.SaveChangesAsync();
+               
+
+                return RedirectToAction("Index", "Request");
+            }
+            return RedirectToAction("Index", "Request");
+        }
+
+
     }
 }

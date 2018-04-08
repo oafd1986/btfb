@@ -120,28 +120,7 @@ namespace btfb.Controllers
             return RedirectToAction("Index");
         }
 
-        [HttpGet,ActionName("Import")]
-        public void ImportMakes()
-        {
-            string url = "https://vpic.nhtsa.dot.gov/api/vehicles/getallmakes?format=json";
-            HttpClient client = new HttpClient();
-            client.BaseAddress = new Uri(url);
-            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            try
-            {
-                var tmp = client.GetAsync(url).Result;
-                if (tmp.IsSuccessStatusCode)
-                {
-                    var result = tmp.Content.ReadAsStringAsync();
-                  
-                }
-                
-            }
-            catch (Exception)
-            {
-                // error handling
-            }
-        }
+       
         protected override void Dispose(bool disposing)
         {
             if (disposing)

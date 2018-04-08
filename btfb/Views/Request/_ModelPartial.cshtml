@@ -1,3 +1,4 @@
 ﻿@model btfb.ViewModels.RequestViewModel
 
 @Html.DropDownListFor(m => m.SelectedModel, Model.Models, new { @class = "form-control form-control-sm", @id = "Model" })
+@Html.ValidationMessageFor(model => model.SelectedModel, "", new { @class = "text-danger" })

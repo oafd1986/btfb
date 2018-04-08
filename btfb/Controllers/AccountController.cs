@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using btfb.Models;
+using btfb.Models.DataAccessClasses;
 
 namespace btfb.Controllers
 {
@@ -483,5 +484,24 @@ namespace btfb.Controllers
             }
         }
         #endregion
+
+        #region MyMethods
+        [Authorize(Roles = "Admins")]
+        [HttpPost]
+        public JsonResult GetUserData( string userId)
+        {
+            if (userId!=string.Empty && userId != null)
+            {
+                UsersDataAccess usersDA = new UsersDataAccess();                 
+                return Json(usersDA.GetUser(userId), JsonRequestBehavior.DenyGet);
+            }
+            else
+            {
+                return Json(string.Empty);
+            }
+        }
+
+        #endregion
+
     }
 }

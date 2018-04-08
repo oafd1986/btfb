@@ -43,10 +43,10 @@
                             </div>
                             <div class="from-group p-2">
                                 @Html.DropDownListFor(m => m.FromState, Model.States, new { @class = "form-control form-control-sm", @id = "FromState" })
-
+                                @Html.ValidationMessageFor(model => model.FromState, "", new { @class = "text-danger" })
                             </div>
                             <div class="from-group p-2">
-                                @Html.EditorFor(model => model.Request.FromZipCode, new { htmlAttributes = new { @class = "form-control form-control-sm col-md-12", @placeholder = "Zip Code" } })
+                                @Html.EditorFor(model => model.Request.FromZipCode, new { htmlAttributes = new { @maxlength = "5", @class = "form-control form-control-sm col-md-12", @placeholder = "Zip Code" } })
                                 @Html.ValidationMessageFor(model => model.Request.FromZipCode, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -61,10 +61,10 @@
                             </div>
                             <div class="from-group p-2">
                                 @Html.DropDownListFor(m => m.ToState, Model.States, new { @class = "form-control form-control-sm", @id = "ToState" })
-                               
+                                @Html.ValidationMessageFor(model => model.ToState, "", new { @class = "text-danger" })
                             </div>
                             <div class="from-group p-2">
-                                @Html.EditorFor(model => model.Request.ToZipCode, new { htmlAttributes = new { @class = "form-control form-control-sm col-md-12", @placeholder = "Zip Code" } })
+                                @Html.EditorFor(model => model.Request.ToZipCode, new { htmlAttributes = new { @maxlength = "5",@class = "form-control form-control-sm col-md-12", @placeholder = "Zip Code" } })
                                 @Html.ValidationMessageFor(model=>model.Request.ToZipCode, "", new { @class = "text-danger" })
                             </div>
                         </div>
@@ -76,11 +76,12 @@
             <div class="row">
                 <div class="col-md-6">
                     @Html.DropDownListFor(m=>m.SelectedMake,Model.Makes,new { @class = "form-control form-control-sm", @id = "Makes" })                  
-                    @Html.ValidationMessageFor(model => model.Request.Make, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.SelectedMake, "", new { @class = "text-danger" })
                 </div>
                 <div class="col-md-6" id="ModelContainer">
 
-                    @Html.DropDownList("Models", null, htmlAttributes: new { @class = "form-control form-control-sm ", @id = "Model" })
+                    @Html.DropDownListFor(m=>m.SelectedModel, Model.Models, htmlAttributes: new { @class = "form-control form-control-sm ", @id = "Model" })
+                    @Html.ValidationMessageFor(model => model.SelectedModel, "", new { @class = "text-danger" })
                 </div>
             </div>
         </div>
@@ -88,6 +89,7 @@
         <div class="row">
             <div class="col-md-6">
                 @Html.DropDownListFor(m => m.SelectedYear, Model.Years, new { @class = "form-control form-control-sm", @id = "years" })
+                @Html.ValidationMessageFor(model => model.SelectedYear, "", new { @class = "text-danger" })
             </div>
             <div class="col-md-6">
                 <div class="row">

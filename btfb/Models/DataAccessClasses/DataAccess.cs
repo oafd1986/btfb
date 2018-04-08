@@ -143,7 +143,7 @@ namespace btfb.Models.DataAccessClasses
         {
 
             var context = new ApplicationDbContext();
-            var nonadmin = context.Roles.Single(b => b.Name != "Admins").Users;
+            var nonadmin = context.Roles.Single(b => b.Name == "Admins").Users;
             var allusers = context.Users.ToList();
             foreach(var nonadm in nonadmin)
             {
@@ -167,7 +167,27 @@ namespace btfb.Models.DataAccessClasses
           
 
         }
-       
+        public UsersDTO GetUser(string userId)
+        {
+            using (btfbEntities db = new btfbEntities())
+            {
+                AspNetUser user = db.AspNetUsers.First(u => u.Id == userId);
+                UsersDTO userDto = new UsersDTO();
+                userDto.firstName = user.FirstName;
+                userDto.lastName = user.LastName;
+                userDto.phone = user.PhoneNumber;
+                userDto.email = user.Email;
+                return userDto;
+            }
+           
+        }
+        public static AspNetUser GetAspNetUser(string userId)
+        {
+            using (btfbEntities db = new btfbEntities())
+            {
+                return db.AspNetUsers.First(u => u.Id == userId);
+            }
+        }
     }
     public class Utils
     {
@@ -182,4 +202,5 @@ namespace btfb.Models.DataAccessClasses
             return years;
 }
     }
+    
 }
