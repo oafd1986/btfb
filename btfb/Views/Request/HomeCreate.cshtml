@@ -12,24 +12,24 @@
             <div class="row">
                 <div class="col-md-6">
                     @Html.EditorFor(model => model.Request.FirstName, new { htmlAttributes = new { @class = "form-control form-control-sm", @placeholder = "Name" } })
-                    @Html.ValidationMessageFor(model => model.Request.FirstName, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Request.FirstName, "", new { @class = "text-danger smallerFontSize" })
 
                 </div>
                 <div class="col-md-6">
                     @Html.EditorFor(model => model.Request.LastName, new { htmlAttributes = new { @class = "form-control form-control-sm", @placeholder = "Last Name" } })
-                    @Html.ValidationMessageFor(model => model.Request.LastName, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.Request.LastName, "", new { @class = "text-danger smallerFontSize" })
                 </div>
 
             </div>
         </div>
         <div class="form-group">
             @Html.EditorFor(model => model.Request.email, new { htmlAttributes = new { @class = "form-control form-control-sm col-md-6", @placeholder = "Email" } })
-            @Html.ValidationMessageFor(model => model.Request.email, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.Request.email, "", new { @class = "text-danger smallerFontSize" })
         </div>
 
         <div class="form-group">
             @Html.EditorFor(model => model.Request.phone, new { htmlAttributes = new { @class = "form-control form-control-sm col-md-6 phone", @placeholder = "Phone", @id = "Phone" } })
-            @Html.ValidationMessageFor(model => model.Request.phone, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(model => model.Request.phone, "", new { @class = "text-danger smallerFontSize" })
         </div>
         <div class="form-group">
             <div class="row">
@@ -43,11 +43,11 @@
                             </div>
                             <div class="from-group p-2">
                                 @Html.DropDownListFor(m => m.FromState, Model.States, new { @class = "form-control form-control-sm", @id = "FromState" })
-                                @Html.ValidationMessageFor(model => model.FromState, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.FromState, "", new { @class = "text-danger smallerFontSize" })
                             </div>
                             <div class="from-group p-2">
                                 @Html.EditorFor(model => model.Request.FromZipCode, new { htmlAttributes = new { @maxlength = "5", @class = "form-control form-control-sm col-md-12", @placeholder = "Zip Code" } })
-                                @Html.ValidationMessageFor(model => model.Request.FromZipCode, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.Request.FromZipCode, "", new { @class = "text-danger smallerFontSize" })
                             </div>
                         </div>
                     </div>
@@ -61,11 +61,11 @@
                             </div>
                             <div class="from-group p-2">
                                 @Html.DropDownListFor(m => m.ToState, Model.States, new { @class = "form-control form-control-sm", @id = "ToState" })
-                                @Html.ValidationMessageFor(model => model.ToState, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model => model.ToState, "", new { @class = "text-danger smallerFontSize" })
                             </div>
                             <div class="from-group p-2">
                                 @Html.EditorFor(model => model.Request.ToZipCode, new { htmlAttributes = new { @maxlength = "5",@class = "form-control form-control-sm col-md-12", @placeholder = "Zip Code" } })
-                                @Html.ValidationMessageFor(model=>model.Request.ToZipCode, "", new { @class = "text-danger" })
+                                @Html.ValidationMessageFor(model=>model.Request.ToZipCode, "", new { @class = "text-danger smallerFontSize" })
                             </div>
                         </div>
                     </div>
@@ -76,12 +76,12 @@
             <div class="row">
                 <div class="col-md-6">
                     @Html.DropDownListFor(m=>m.SelectedMake,Model.Makes,new { @class = "form-control form-control-sm", @id = "Makes" })                  
-                    @Html.ValidationMessageFor(model => model.SelectedMake, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.SelectedMake, "", new { @class = "text-danger smallerFontSize" })
                 </div>
                 <div class="col-md-6" id="ModelContainer">
 
                     @Html.DropDownListFor(m=>m.SelectedModel, Model.Models, htmlAttributes: new { @class = "form-control form-control-sm ", @id = "Model" })
-                    @Html.ValidationMessageFor(model => model.SelectedModel, "", new { @class = "text-danger" })
+                    @Html.ValidationMessageFor(model => model.SelectedModel, "", new { @class = "text-danger smallerFontSize" })
                 </div>
             </div>
         </div>
@@ -89,14 +89,14 @@
         <div class="row">
             <div class="col-md-6">
                 @Html.DropDownListFor(m => m.SelectedYear, Model.Years, new { @class = "form-control form-control-sm", @id = "years" })
-                @Html.ValidationMessageFor(model => model.SelectedYear, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.SelectedYear, "", new { @class = "text-danger smallerFontSize" })
             </div>
             <div class="col-md-6">
                 <div class="row">
                     <div class="col-md-4">@Html.LabelFor(model => model.Request.Runs)</div>
                     <div class="col-md-4">@Html.EditorFor(model => model.Request.Runs, new { htmlAttributes = new { @class = "form-control" } })</div>
                 </div>              
-                @Html.ValidationMessageFor(model => model.Request.Runs, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Request.Runs, "", new { @class = "text-danger smallerFontSize" })
             </div>
         </div>
 

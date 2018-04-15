@@ -6,34 +6,6 @@
 <script type="text/javascript">
    
     
-    $(document).ready(function () {
-        
-      
-    $(function () {
-        
-        $('#Makes').change(function () {
-            var selectedMakeID = this.value;
-            
-                $.ajax({
-                    url: "/Request/Models",
-                    type: "post",
-                    data: {
-                        
-                        makeId: selectedMakeID
-                    },
-                    success: function (result) {
-                        // refreshes partial view
-                        $('#ModelContainer').html(result);
-                       
-                    },
-                    fail: function () {
-                        alert("error");
-                       
-                    }
-                });
-    });
-        });
-    });
 </script>
 <br>
 <div class="row">

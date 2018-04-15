@@ -32,12 +32,14 @@ namespace btfb.Models.DbAccessModel
         [Display(Name = "Destination Zip Code")]
         [StringLength(5, ErrorMessage = "The {0} must have {2} characters.", MinimumLength = 5)]
         public string ToZipCode { get; set; }
-       
+
         [Display(Name = "Make")]
         public virtual Make Make1 { get; set; }
-       
+
         [Display(Name = "Model")]
         public virtual Model Model1 { get; set; }
-       
+        [Display(Name = "Price")]
+        [Range(0.0, 1000000000000,ErrorMessage ="The Price must be greater than 0.")]
+        public decimal Price {get;set;}
     }
 }

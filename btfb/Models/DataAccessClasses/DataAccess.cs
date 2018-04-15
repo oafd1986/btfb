@@ -119,17 +119,27 @@ namespace btfb.Models.DataAccessClasses
         /// <returns></returns>
         public List<SelectListItem> GetModelsList(int makeId)
         {
-            List<Model> models = GetModelsFromMake(makeId);
-            List<SelectListItem> modelsDropDownList = new List<SelectListItem>();
-            modelsDropDownList.Add(new SelectListItem { Text = "-Model-", Value = "0" });
-            if (models != null)
+            try
             {
-                foreach (var model in models)
+                List<Model> models = GetModelsFromMake(makeId);
+                List<SelectListItem> modelsDropDownList = new List<SelectListItem>();
+                modelsDropDownList.Add(new SelectListItem { Text = "-Model-", Value = "0" });
+                if (models != null)
                 {
-                    modelsDropDownList.Add(new SelectListItem { Text = model.Model1, Value = model.id.ToString() });
+                    foreach (var model in models)
+                    {
+                        modelsDropDownList.Add(new SelectListItem { Text = model.Model1, Value = model.id.ToString() });
+                    }
                 }
+                return modelsDropDownList;
             }
-            return modelsDropDownList;
+            catch(Exception)
+            {
+                List<SelectListItem> modelsDropDownList = new List<SelectListItem>();
+                modelsDropDownList.Add(new SelectListItem { Text = "-Model-", Value = "0" });
+
+                return modelsDropDownList;
+            }
         }
     }
     public class RequestDataAccess
@@ -169,16 +179,23 @@ namespace btfb.Models.DataAccessClasses
         }
         public UsersDTO GetUser(string userId)
         {
-            using (btfbEntities db = new btfbEntities())
-            {
-                AspNetUser user = db.AspNetUsers.First(u => u.Id == userId);
-                UsersDTO userDto = new UsersDTO();
-                userDto.firstName = user.FirstName;
-                userDto.lastName = user.LastName;
-                userDto.phone = user.PhoneNumber;
-                userDto.email = user.Email;
+            
+                using (btfbEntities db = new btfbEntities())
+                {
+                    AspNetUser user = db.AspNetUsers.FirstOrDefault(u => u.Id == userId);
+                    UsersDTO userDto = new UsersDTO();
+                if (user!= null)
+                {
+                    userDto.firstName = user.FirstName;
+                    userDto.lastName = user.LastName;
+                    userDto.phone = user.PhoneNumber;
+                    userDto.email = user.Email;
+                }
+                    
                 return userDto;
-            }
+                }
+            
+            
            
         }
         public static AspNetUser GetAspNetUser(string userId)

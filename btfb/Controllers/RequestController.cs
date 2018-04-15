@@ -53,7 +53,6 @@ namespace btfb.Controllers
             
             
         }
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -143,12 +142,83 @@ namespace btfb.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Request make = await db.Requests.FindAsync(id);
-            if (make == null)
+            Request request = await db.Requests.FindAsync(id);
+            if (request == null)
             {
                 return HttpNotFound();
             }
-            return View(make);
+            RequestViewModel requestvm = new RequestViewModel();
+            requestvm.Request = request;
+
+            MakesDataAccess makesDA = new MakesDataAccess();
+            requestvm.Makes = makesDA.GetMakesList();
+            requestvm.Models = makesDA.GetModelsList(request.Make.GetValueOrDefault());
+            if (request.Make != null)
+            {
+                requestvm.SelectedMake = request.Make.GetValueOrDefault().ToString();
+            }
+            if (request.Model!= null)
+            {
+                requestvm.SelectedModel = request.Model.GetValueOrDefault().ToString();
+            }           
+            UsersDataAccess usersDA = new UsersDataAccess();
+            requestvm.Users = usersDA.GetNonAdminUsers();
+            requestvm.SelectedUser = request.UserId;
+
+            StatesDataAccess statesDA = new StatesDataAccess();
+            requestvm.States = statesDA.GetStatesList();
+
+            if (request.FromState!=null)
+            {
+                requestvm.FromState = request.FromState.GetValueOrDefault().ToString();
+            }
+            if (request.ToState != null)
+            {
+                requestvm.ToState = request.ToState.GetValueOrDefault().ToString();
+            }
+            Utils util = new Utils();
+            requestvm.Years = util.GetYearsList();
+            requestvm.SelectedYear = request.Year;
+
+            return View(requestvm);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admins")]
+        public async Task<ActionResult> Edit(RequestViewModel rvm)
+        {
+            if (ModelState.IsValid)
+            {
+
+                Request request = new Request();
+                request = rvm.Request;
+
+                request.Make = int.Parse(rvm.SelectedMake);
+                request.Model = int.Parse(rvm.SelectedModel);
+                request.FromState = int.Parse(rvm.FromState);
+                request.ToState = int.Parse(rvm.ToState);
+                request.Year = rvm.SelectedYear;
+                request.UserId = rvm.SelectedUser;
+
+
+                db.Entry(request).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            MakesDataAccess makesDA = new MakesDataAccess();
+            rvm.Makes = makesDA.GetMakesList();
+            rvm.Models = makesDA.GetModelsList();
+
+            UsersDataAccess usersDA = new UsersDataAccess();
+            rvm.Users = usersDA.GetNonAdminUsers();           
+
+            StatesDataAccess statesDA = new StatesDataAccess();
+            rvm.States = statesDA.GetStatesList();
+
+
+            Utils util = new Utils();
+            rvm.Years = util.GetYearsList();
+            return View(rvm);
         }
         //for next version use httpost to delete using a popup in the same index view with viewbag having form to submit
         //id to delete
