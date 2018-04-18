@@ -74,6 +74,19 @@ namespace btfb.Controllers
                 return View(model);
             }
 
+         
+            var user = await UserManager.FindByNameAsync(model.Email);
+            if(user == null)
+            {
+
+                ModelState.AddModelError("", "Invalid login attempt.");
+                return View(model);
+            }
+            if (!await UserManager.IsEmailConfirmedAsync(user.Id))
+            {
+                ModelState.AddModelError("", "You must confirm your email.");
+                return View(model);
+            }
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -87,9 +100,10 @@ namespace btfb.Controllers
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
                 default:
-                    ModelState.AddModelError("", "Incorrect credential please try again.");
-                    return View(model);
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                   return View(model);
             }
+
         }
 
         //
@@ -125,6 +139,7 @@ namespace btfb.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+
                     return RedirectToLocal(model.ReturnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -158,15 +173,15 @@ namespace btfb.Controllers
                 if (result.Succeeded)
                 {
                     manager.AddToRole(user.Id,"Users");
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+                    //await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                    return View("EmailConfirmation");
                 }
                 AddErrors(result);
             }

@@ -88,6 +88,7 @@ namespace btfb.Controllers
                 Email mailClient = new Email();
                 StringBuilder bodyClient = new StringBuilder();
                 mail.mailSubject = "Quote request";
+                mail.toAddresses = request.email;
                 bodyClient.Append("Dear: "+ request.FirstName + " " + request.LastName + "\n\n");
                 bodyClient.Append("You requested a quote to BTFB your new request is in the hands of our specialists and they will be contacting you soon.\n");
                 bodyClient.Append("Your Request Id is " + request.RecordId+"\n\n");

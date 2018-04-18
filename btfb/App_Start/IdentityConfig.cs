@@ -11,6 +11,10 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using btfb.Models;
+using System.Net.Mail;
+using System.Net.Mime;
+using btfb.Helpers;
+using System.Text;
 
 namespace btfb
 {
@@ -19,8 +23,39 @@ namespace btfb
         public Task SendAsync(IdentityMessage message)
         {
             // Plug in your email service here to send an email.
+            #region formatter
+            string text = string.Format("Please click on this link to {0}: {1}", message.Subject, message.Body);
+            //string html = string.Format("Please click on this link to {0}: {1}", message.Subject, message.Body); ;
+
+            //html += HttpUtility.HtmlEncode(@"Or click on the copy the following link on the browser:" + message.Body);
+            #endregion
+
+            var client = new System.Net.Mail.SmtpClient("smtpout.secureserver.net", 80);
+            //client.EnableSsl = true;
+            client.UseDefaultCredentials = false;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.Credentials = new System.Net.NetworkCredential("support@hbiconsulting.net", "scrappy1");
+
+            try
+            {
+                StringBuilder body = new StringBuilder();
+                body.Append(string.Format("Please click on this link to {0}: {1}", message.Subject, message.Body));
+                Email mail = new Email();
+                mail.mailSubject = message.Subject;
+                mail.msgbody = body;
+                mail.toAddresses = message.Destination;
+                mail.SendEmail();
+                
+            }
+            catch (Exception e)
+            {
+                HttpContext.Current.Response.Write("<script>alert('Could not send e-mail. Error:' " + e + ");</script>");
+                Console.WriteLine("Could not send e-mail. Error: " + e);
+            }
+
             return Task.FromResult(0);
         }
+
     }
 
     public class SmsService : IIdentityMessageService
