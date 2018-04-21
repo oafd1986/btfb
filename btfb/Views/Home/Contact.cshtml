@@ -1,14 +1,41 @@
 ﻿@{
     ViewBag.Title = "Contact us";
 }
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMxDCNdHk0J2Q8i3U_DcLD2HbwzOsF6Dw&callback=initMap"></script>
+<script type="text/javascript">
 
+    function initialize() {
 
-<div class="row">
+        var canvas = $("#map_canvas");
+
+        var latitude = 25.752314;
+        var longitude = -80.321692;
+
+        var latlng = new google.maps.LatLng(latitude, longitude);
+        var options = {
+            zoom: 15,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(canvas[0], options);
+
+        var marker = new google.maps.Marker({
+            position: new google.maps.LatLng(latitude, longitude),
+            map: map
+        });
+    }
+
+    $(function () {
+        initialize();
+    });
+
+</script>
+<div class="row margin-top-05">
     <div class="col-sm-4">
         <h2 class="mt-4">@ViewBag.Title.</h2>
         <address>
-            xxx xxxxx xxx<br />
-            Miami, FL 33187<br />
+            7750 SW 19th St,<br />
+            Miami, FL 33155<br />
             <strong>Phone:</strong> (305)-235-8899
         </address>
 
@@ -16,6 +43,9 @@
             <strong>Email:</strong>   <a href="mailto:Support@example.com">Support@example.com</a>
 
         </address>
+    </div>
+    <div class="col-md-8" id="map_canvas">
+
     </div>
   
 </div>

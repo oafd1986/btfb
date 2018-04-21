@@ -80,7 +80,7 @@ namespace btfb.Controllers
                 body.Append("From:"+request.FirstName+" "+request.LastName+"\n");
                 body.Append("Phone: "+request.phone+"\n");
                 body.Append("Email: " + request.email+"\n");
-                body.Append("Request Id: "+request.RecordId+"\n");
+                body.Append("Request Id: "+request.RequestId+"\n");
                 
                 mail.msgbody = body;
                 mail.SendEmail();
@@ -91,7 +91,7 @@ namespace btfb.Controllers
                 mail.toAddresses = request.email;
                 bodyClient.Append("Dear: "+ request.FirstName + " " + request.LastName + "\n\n");
                 bodyClient.Append("You requested a quote to BTFB your new request is in the hands of our specialists and they will be contacting you soon.\n");
-                bodyClient.Append("Your Request Id is " + request.RecordId+"\n\n");
+                bodyClient.Append("Your Request Id is " + request.RequestId+"\n\n");
                 bodyClient.Append("Thank you for choosing BTFB \n");
                 
                
