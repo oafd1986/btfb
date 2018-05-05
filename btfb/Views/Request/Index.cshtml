@@ -3,14 +3,27 @@
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var requestGrid = new WebGrid(Model);
 }
 
 <h3>Requests</h3>
 
 <p>
-  
-    @Html.ActionLink("Create New", "Create",null,new { @class= "btn btn-info btn-sm" })
+
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-info btn-sm" })
 </p>
+@MvcHtmlString.Create(
+    requestGrid.GetHtml(
+        htmlAttributes: new
+        {
+            id = "RequestGrid",
+            @class = "table table-striped table-bordered table-hover table-condensed smallerFontSize"
+        },
+        columns: requestGrid.Columns(
+            requestGrid.Column("RequestId", "Request Id")
+            )
+        ).ToHtmlString()
+)
 <table class="table table-striped table-bordered table-hover table-condensed smallerFontSize">
     <tr>
         <th>Request Id</th>
@@ -19,68 +32,69 @@
         <th>Phone</th>
         <th>Make</th>
         <th>Model</th>
-        <th>@Html.DisplayNameFor(model => model.Year)</th>       
+        <th>@Html.DisplayNameFor(model => model.Year)</th>
         <th>@Html.DisplayNameFor(model => model.Runs)</th>
         <th>@Html.DisplayNameFor(model => model.Price)</th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem=>item.RequestId)
-        </td>
-        <td>
-            @(String.Format("{0} {1}", Html.DisplayFor(modelItem => item.FirstName), Html.DisplayFor(modelItem => item.LastName)))
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.phone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Make1.Make1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Model1.Model1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Year)
-        </td>
-        
-        <td>
-            @if (item.Runs == true)
-                 {
-                 <text>Yes</text>
-                    }
-             else
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequestId)
+            </td>
+            <td>
+                @(String.Format("{0} {1}", Html.DisplayFor(modelItem => item.FirstName), Html.DisplayFor(modelItem => item.LastName)))
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Make1.Make1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Model1.Model1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year)
+            </td>
+
+            <td>
+                @if (item.Runs == true)
                 {
-                <text>No</text>
+                    <text>Yes</text>
                 }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
+                else
+                {
+                    <text>No</text>
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
 
 
 
 
-        <td>
-            <a href="@Url.Action("Edit", "Request",new { id=item.RecordId})" class="btn btn-light btn-sm" title="Edit">
-                <span class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></span>
-            </a>
-            |
-            <a href="@Url.Action("Details", "Request",new { id=item.RecordId})" class="btn btn-light btn-sm" title="Details">
-                <span class="fa fa-info fa-fw" aria-hidden="true"></span>
-            </a>
-            |
-            <a href="@Url.Action("Delete", "Request",new { id=item.RecordId})" onclick="return confirm('Are you sure you want to delete this Request?');" class="btn btn-light btn-sm" title="Delete">
-                <span class="fa fa-trash fa-fw" aria-hidden="true"></span>
-            </a>
-           
-        </td>
-    </tr>
-}
+            <td>
+                <a href="@Url.Action("Edit", "Request",new { id=item.RecordId})" class="btn btn-light btn-sm" title="Edit">
+                    <span class="fa fa-pencil-square-o fa-fw" aria-hidden="true"></span>
+                </a>
+                |
+                <a href="@Url.Action("Details", "Request",new { id=item.RecordId})" class="btn btn-light btn-sm" title="Details">
+                    <span class="fa fa-info fa-fw" aria-hidden="true"></span>
+                </a>
+                |
+                <a href="@Url.Action("Delete", "Request",new { id=item.RecordId})" onclick="return confirm('Are you sure you want to delete this Request?');" class="btn btn-light btn-sm" title="Delete">
+                    <span class="fa fa-trash fa-fw" aria-hidden="true"></span>
+                </a>
+
+            </td>
+        </tr>
+    }
 
 </table>
