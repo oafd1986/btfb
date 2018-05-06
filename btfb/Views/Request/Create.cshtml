@@ -56,6 +56,10 @@
                                 <div class="card-title p-2"><h5>Origin</h5></div>
                                 <div class="from-group p-2">
 
+                                    @Html.EditorFor(model => model.Request.Fromaddress, new { htmlAttributes = new { @class = "form-control form-control-sm col-md-12", @placeholder = "Address" } })
+                                </div>
+                                <div class="from-group p-2">
+
                                     @Html.EditorFor(model => model.Request.FromCity, new { htmlAttributes = new { @class = "form-control form-control-sm col-md-12", @placeholder = "City" } })
                                 </div>
                                 <div class="from-group p-2">
@@ -73,6 +77,10 @@
                         <div class="card">
                             <div class="card-block">
                                 <div class="card-title p-2"><h5>Destination</h5></div>
+                                <div class="from-group p-2">
+
+                                    @Html.EditorFor(model => model.Request.ToAddress, new { htmlAttributes = new { @class = "form-control form-control-sm col-md-12", @placeholder = "Address" } })
+                                </div>
                                 <div class="from-group p-2">
                                     @Html.EditorFor(model => model.Request.ToCity, new { htmlAttributes = new { @class = "form-control form-control-sm col-md-12", @placeholder = "City" } })
                                 </div>
