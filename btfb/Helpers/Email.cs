@@ -58,7 +58,7 @@ namespace btfb.Helpers
             mail.From = new MailAddress(fromAddress);
             mail.Subject = mailSubject;
             mail.Body = msgbody.ToString();
-            mail.IsBodyHtml = false;
+            mail.IsBodyHtml = true;
             mail.Priority = MailPriority.High;
             mail.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
 

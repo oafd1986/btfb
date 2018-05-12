@@ -30,11 +30,7 @@ namespace btfb
             //html += HttpUtility.HtmlEncode(@"Or click on the copy the following link on the browser:" + message.Body);
             #endregion
 
-            var client = new System.Net.Mail.SmtpClient("smtpout.secureserver.net", 80);
-            //client.EnableSsl = true;
-            client.UseDefaultCredentials = false;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.Credentials = new System.Net.NetworkCredential("support@hbiconsulting.net", "scrappy1");
+            
 
             try
             {
@@ -50,7 +46,7 @@ namespace btfb
             catch (Exception e)
             {
                 HttpContext.Current.Response.Write("<script>alert('Could not send e-mail. Error:' " + e + ");</script>");
-                Console.WriteLine("Could not send e-mail. Error: " + e);
+                //Console.WriteLine("Could not send e-mail. Error: " + e);
             }
 
             return Task.FromResult(0);
