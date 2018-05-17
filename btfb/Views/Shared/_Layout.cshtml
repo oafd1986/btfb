@@ -2,6 +2,8 @@
 <html>
 <head>
     <meta charset="utf-8" />
+    <meta name="description" content="EasyShip Brokers we make your shipping needs fast and easy.">
+    <meta name="keywords" content="freight transport,transport,freight,Broker,trucks,car,shipping">
     <meta name="viewport" content="width=device-width, initial-scale=1.0 shrink-to-fit=no">
     <title>@ViewBag.Title - BTFB</title>
     @Styles.Render("~/Content/css")
@@ -51,7 +53,9 @@
                                     @Html.ActionLink("Profile", "Index", "Manage", null, new { @class = "dropdown-item" })
 
                                 </li>
-                                
+                                <li>
+                                    @Html.ActionLink("Requests","Index","Request",null,new { @class = "dropdown-item"})
+                                </li>
                                 <li class="dropdown-divider"></li>
                                 <li>
                                     <form method="post" action="@Url.Action("LogOff", "Account")" id="signoutfrm" style="display:none;">
