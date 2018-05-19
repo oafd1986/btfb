@@ -18,47 +18,47 @@ using System.Data.Entity;
 namespace btfb.Controllers
 {
     public class RequestController : Controller
-    {       
+    {
 
         private btfbEntities db = new btfbEntities();
-        
+
         [AllowAnonymous]
         public ActionResult HomeCreate()
         {
             RequestViewModel request = new RequestViewModel();
             request.Request = new Request();
-            
-            if(User.Identity.IsAuthenticated)
+
+            if (User.Identity.IsAuthenticated)
             {
                 ApplicationUser user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
-                
+
                 request.Request.FirstName = user.FirstName;
                 request.Request.LastName = user.LastName;
                 request.Request.phone = user.PhoneNumber;
                 request.Request.email = user.Email;
             }
-          
-                MakesDataAccess makesDA = new MakesDataAccess();
-                request.Makes = makesDA.GetMakesList();
-                request.Models = makesDA.GetModelsList();
+
+            MakesDataAccess makesDA = new MakesDataAccess();
+            request.Makes = makesDA.GetMakesList();
+            request.Models = makesDA.GetModelsList();
 
 
-                StatesDataAccess statesDA = new StatesDataAccess();
-                request.States = statesDA.GetStatesList();
+            StatesDataAccess statesDA = new StatesDataAccess();
+            request.States = statesDA.GetStatesList();
 
 
-                Utils util = new Utils();
-                request.Years = util.GetYearsList();
-                return View(request);
-            
-            
+            Utils util = new Utils();
+            request.Years = util.GetYearsList();
+            return View(request);
+
+
         }
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async  Task<ActionResult> HomeCreate(RequestViewModel rvm)
+        public async Task<ActionResult> HomeCreate(RequestViewModel rvm)
         {
-            
+
             if (ModelState.IsValid)
             {
                 Request request = new Request();
@@ -77,11 +77,11 @@ namespace btfb.Controllers
                 StringBuilder body = new StringBuilder();
                 mail.mailSubject = "New quote request";
                 body.Append("You have a new quote request.\n\n");
-                body.Append("From:"+request.FirstName+" "+request.LastName+"\n");
-                body.Append("Phone: "+request.phone+"\n");
-                body.Append("Email: " + request.email+"\n");
-               // body.Append("Request Id: "+request.RequestId+"\n");
-                
+                body.Append("From:" + request.FirstName + " " + request.LastName + "\n");
+                body.Append("Phone: " + request.phone + "\n");
+                body.Append("Email: " + request.email + "\n");
+                // body.Append("Request Id: "+request.RequestId+"\n");
+
                 mail.msgbody = body;
                 mail.SendEmail();
                 //notify client that his request is being proccessed
@@ -89,15 +89,15 @@ namespace btfb.Controllers
                 StringBuilder bodyClient = new StringBuilder();
                 mail.mailSubject = "Quote request";
                 mail.toAddresses = request.email;
-                bodyClient.Append("Dear: "+ request.FirstName + " " + request.LastName + "\n\n");
+                bodyClient.Append("Dear: " + request.FirstName + " " + request.LastName + "\n\n");
                 bodyClient.Append("You requested a quote to BTFB your new request is in the hands of our specialists and they will be contacting you soon.\n");
-               // bodyClient.Append("Your Request Id is " + request.RequestId+"\n\n");
+                // bodyClient.Append("Your Request Id is " + request.RequestId+"\n\n");
                 bodyClient.Append("Thank you for choosing BTFB \n");
-                
-               
+
+
                 mail.msgbody = bodyClient;
                 mail.SendEmail();
-                return RedirectToAction("Index","Home",new { area = ""});
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
             return RedirectToAction("Index", "Home", new { area = "" });
 
@@ -116,9 +116,9 @@ namespace btfb.Controllers
             MakesDataAccess makesDA = new MakesDataAccess();
             RequestViewModel request = new RequestViewModel();
             request.Models = makesDA.GetModelsList(makeId.GetValueOrDefault());
-            return PartialView("_ModelPartial",request);
+            return PartialView("_ModelPartial", request);
         }
-        [Authorize(Roles ="Admins")]
+        [Authorize(Roles = "Admins")]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -133,9 +133,22 @@ namespace btfb.Controllers
             return View(request);
         }
         [Authorize(Roles = "Admins")]
-        public async Task<ActionResult> Index()
+        //public async Task<ActionResult> Index()
+        //{
+        //    return View(await db.Requests.ToListAsync());
+        //}
+        public async Task<ActionResult> Index(string filter = "")
         {
-            return View(await db.Requests.ToListAsync());
+            List<Request> req = new List<Request>(); 
+            if (filter != string.Empty && filter != null)
+            {
+                req = await db.Requests.Where(x => x.RequestId.Contains(filter) || x.email.Contains(filter)).ToListAsync();
+            }
+            else
+            {
+                req = await db.Requests.ToListAsync();
+            }
+            return View(req);
         }
         public async Task<ActionResult> Edit(int? id)
         {

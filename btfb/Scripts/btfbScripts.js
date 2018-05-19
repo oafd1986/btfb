@@ -1,30 +1,30 @@
 ﻿$(document).ready(function () {
     //populate makes
-    $(function () {
+    //$(function () {
 
-        $('#Makes').change(function () {
-            var selectedMakeID = this.value;
+    //    $('#Makes').change(function () {
+    //        var selectedMakeID = this.value;
 
-            $.ajax({
-                url: "/Request/Models",
-                type: "post",
-                data: {
+    //        $.ajax({
+    //            url: "/Request/Models",
+    //            type: "post",
+    //            data: {
 
-                    makeId: selectedMakeID
-                },
-                success: function (result) {
-                    // refreshes partial view
-                    $('#ModelContainer').html(result);
+    //                makeId: selectedMakeID
+    //            },
+    //            success: function (result) {
+    //                // refreshes partial view
+    //                $('#ModelContainer').html(result);
 
-                },
-                fail: function () {
-                    alert("error");
+    //            },
+    //            fail: function () {
+    //                alert("error");
 
-                }
-            });
-        });
+    //            }
+    //        });
+    //    });
 
-    });
+    //});
     //populate models
     $(function () {
         
