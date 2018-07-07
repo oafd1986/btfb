@@ -62,6 +62,8 @@ namespace btfb.Controllers
             if (ModelState.IsValid)
             {
                 Request request = new Request();
+                googleHelper distance = new googleHelper("33194","33183");
+                string km = distance.CalculateDistance();
                 request = rvm.Request;
 
                 request.Make = int.Parse(rvm.SelectedMake);
